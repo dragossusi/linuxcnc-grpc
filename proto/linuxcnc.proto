@@ -28,15 +28,15 @@ message HalPin {
 message CreateHalPinRequest {
     string name = 1;
     HalPinType type = 2;
-    HalPinDir dir = 3;
 }
 
 message HalComponent {
-    string name = 1;
+    int32 component_id = 1;
+    string name = 2;
 }
 
 message GetComponentsRequest {
-
+    // empty
 }
 
 message GetComponentsResponse {
@@ -51,8 +51,8 @@ message CreateComponentRequest {
     string name = 1;
 }
 
-message CreateFloatPinRequest {
-    string componentName = 1;
+message CreatePinRequest {
+    string componentId = 1;
     float value = 2;
 }
 
@@ -63,6 +63,6 @@ service LinuxCnc {
 
     rpc GetPins(HalComponent) returns (stream GetPinsResponse);
     
-    rpc CreateFloatPin (CreateFloatPinRequest) returns (HalPin);
+    rpc CreateFloatPin (CreateHalPinRequest) returns (HalPin);
 
 }
