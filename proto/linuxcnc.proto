@@ -2,67 +2,69 @@ syntax = "proto3";
 
 package linuxcnc;
 
+option java_package = "ro.dragossusi.proto.linuxcnc";
+
 enum HalPinType {
-    TYPE_UNSPECIFIED = 0;
-    TYPE_UNINITIALIZED = 1;
-    TYPE_BIT = 2;
-    FLOAT = 3;
-    S32 = 4;
-    U32 = 5;
-    PORT = 6;
+  TYPE_UNSPECIFIED = 0;
+  TYPE_UNINITIALIZED = 1;
+  TYPE_BIT = 2;
+  FLOAT = 3;
+  S32 = 4;
+  U32 = 5;
+  PORT = 6;
 }
 
 enum HalPinDir {
-    DIR_UNSPECIFIED = 0;
-    IN = 1;
-    OUT = 2;
-    IO = 3;
+  DIR_UNSPECIFIED = 0;
+  IN = 1;
+  OUT = 2;
+  IO = 3;
 }
 
 message HalPin {
-    string componentName = 1;
-    string name = 2;
-    HalPinType type = 3;
+  string componentName = 1;
+  string name = 2;
+  HalPinType type = 3;
 }
 
 message CreateHalPinRequest {
-    string name = 1;
-    HalPinType type = 2;
+  string name = 1;
+  HalPinType type = 2;
 }
 
 message HalComponent {
-    int32 component_id = 1;
-    string name = 2;
+  int32 component_id = 1;
+  string name = 2;
 }
 
 message GetComponentsRequest {
-    // empty
+  // empty
 }
 
 message GetComponentsResponse {
-    repeated HalComponent components = 1;
+  repeated HalComponent components = 1;
 }
 
 message GetPinsResponse {
-    repeated HalComponent components = 1;
+  repeated HalComponent components = 1;
 }
 
 message CreateComponentRequest {
-    string name = 1;
+  string name = 1;
 }
 
 message CreatePinRequest {
-    string componentId = 1;
-    float value = 2;
+  string componentId = 1;
+  float value = 2;
 }
 
-service LinuxCnc {
-    rpc GetComponents(GetComponentsRequest) returns (stream GetComponentsResponse);
+service LinuxCncService {
+  rpc GetComponents(GetComponentsRequest) returns (stream GetComponentsResponse);
 
-    rpc CreateComponent (CreateComponentRequest) returns (HalComponent);
+  rpc CreateComponent (CreateComponentRequest) returns (HalComponent);
 
-    rpc GetPins(HalComponent) returns (stream GetPinsResponse);
-    
-    rpc CreateFloatPin (CreateHalPinRequest) returns (HalPin);
+  rpc GetPins(HalComponent) returns (stream GetPinsResponse);
+
+  rpc CreateFloatPin (CreateHalPinRequest) returns (HalPin);
 
 }
