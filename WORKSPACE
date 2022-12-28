@@ -11,15 +11,21 @@ new_git_repository(
     remote = "https://github.com/LinuxCNC/linuxcnc.git",
 )
 
-# JVM external
+# Proto
 http_archive(
-    name = "rules_jvm_external",
-    sha256 = "cd1a77b7b02e8e008439ca76fd34f5b07aecb8c752961f9640dea15e9e5ba1ca",
-    strip_prefix = "rules_jvm_external-4.2",
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/4.2.zip",
+    name = "rules_proto",
+    sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",
+    strip_prefix = "rules_proto-5.3.0-21.7",
+    urls = [
+        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
+    ],
 )
 
-load("@rules_jvm_external//:defs.bzl", "maven_install")
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+
+rules_proto_dependencies()
+
+rules_proto_toolchains()
 
 # Repositories
 load(
@@ -28,8 +34,14 @@ load(
     "IO_GRPC_GRPC_KOTLIN_OVERRIDE_TARGETS",
     "com_github_grpc_grpc",
     "grpc_kt_repositories",
+    "io_bazel_rules_kotlin",
     "io_grpc_grpc_java",
+    "rules_jvm_external",
 )
+
+rules_jvm_external()
+
+io_bazel_rules_kotlin()
 
 io_grpc_grpc_java()
 
@@ -43,6 +55,8 @@ load(
 )
 
 # Maven
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
 maven_install(
     artifacts = [
         "com.google.jimfs:jimfs:1.1",
@@ -55,6 +69,7 @@ maven_install(
         IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS.items(),
     ),
     repositories = [
+        "https://maven.google.com",
         "https://repo.maven.apache.org/maven2/",
     ],
 )
@@ -64,12 +79,13 @@ load("@maven//:compat.bzl", "compat_repositories")
 compat_repositories()
 
 # gRPC
-#load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
-#load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
+load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
 
-#grpc_deps()
+grpc_deps()
 
-#grpc_extra_deps()
+load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
+
+grpc_extra_deps()
 
 grpc_kt_repositories()
 
@@ -88,17 +104,6 @@ kotlin_repositories()
 load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
 
 kt_register_toolchains()
-
-### rules_cc defines rules for generating C++ code from Protocol Buffers.
-http_archive(
-    name = "rules_cc",
-    sha256 = "35f2fb4ea0b3e61ad64a369de284e4fbbdcdba71836a5555abb5e194cf119509",
-    strip_prefix = "rules_cc-624b5d59dfb45672d4239422fa1e3de1822ee110",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_cc/archive/624b5d59dfb45672d4239422fa1e3de1822ee110.tar.gz",
-        "https://github.com/bazelbuild/rules_cc/archive/624b5d59dfb45672d4239422fa1e3de1822ee110.tar.gz",
-    ],
-)
 
 load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies")
 

@@ -3,6 +3,7 @@ syntax = "proto3";
 package linuxcnc;
 
 option java_package = "ro.dragossusi.proto.linuxcnc";
+option java_multiple_files = true;
 
 enum HalPinType {
   TYPE_UNSPECIFIED = 0;
@@ -22,9 +23,11 @@ enum HalPinDir {
 }
 
 message HalPin {
-  string componentName = 1;
-  string name = 2;
-  HalPinType type = 3;
+  string name = 1;
+  HalPinType type = 2;
+  HalPinDir dir = 3;
+  int32 component_id = 4;
+  string component_name = 5;
 }
 
 message CreateHalPinRequest {
@@ -58,13 +61,13 @@ message CreatePinRequest {
   float value = 2;
 }
 
-service LinuxCncService {
+service LinuxCnc {
   rpc GetComponents(GetComponentsRequest) returns (stream GetComponentsResponse);
 
   rpc CreateComponent (CreateComponentRequest) returns (HalComponent);
 
   rpc GetPins(HalComponent) returns (stream GetPinsResponse);
 
-  rpc CreateFloatPin (CreateHalPinRequest) returns (HalPin);
+  rpc CreatePin (CreateHalPinRequest) returns (HalPin);
 
 }
