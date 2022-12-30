@@ -29,7 +29,7 @@ using linuxcnc::LinuxCnc;
 std::map<std::string, HalComponent> componentsMap;
 
 // Logic and data behind the server's behavior.
-class GreeterServiceImpl final : public LinuxCnc::Service
+class LinuxCncServiceImpl final : public LinuxCnc::Service
 {
 
   Status GetComponents(ServerContext *context, const GetComponentsRequest *request,
@@ -84,7 +84,7 @@ int main(int argc, char **argv)
   std::string port = "50051";
   std::string server_address = address + ":" + port;
 
-  GreeterServiceImpl service;
+  LinuxCncServiceImpl service;
 
   ServerBuilder builder;
   // Listen on the given address without any authentication mechanism.

@@ -1,12 +1,12 @@
 workspace(name = "linuxcnc-grpc")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-### linuxcnc git repo
-new_git_repository(
-    name = "linuxcnc",
-    build_file = "linuxcnc/linuxcnc.BUILD",
+### linuxcnc
+git_repository(
+    name = "linuxcnc_git",
+    build_file = "linuxcnc.BUILD",
     commit = "213e0ae91c9b26d9c86065ec438450cac4d1cc80",
     remote = "https://github.com/LinuxCNC/linuxcnc.git",
 )

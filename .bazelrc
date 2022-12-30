@@ -1,0 +1,5 @@
+# load user defined
+try-import %workspace%/user.bazelrc
+
+# set c++17
+build --action_env=BAZEL_CXXOPTS="-std=c++17"

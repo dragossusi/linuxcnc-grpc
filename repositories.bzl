@@ -8,7 +8,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 #     ] + IO_GRPC_GRPC_KOTLIN_ARTIFACTS + IO_GRPC_GRPC_JAVA_ARTIFACTS,
 # )
 IO_GRPC_GRPC_KOTLIN_ARTIFACTS = [
-    "com.google.guava:guava:30.1.1-android",
+    "com.google.guava:guava:31.0.1-android",
     "com.squareup:kotlinpoet:1.12.0",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4",
@@ -41,19 +41,21 @@ def grpc_kt_repositories():
 #        com_github_grpc_grpc()
 
 def rules_jvm_external():
+    jvm_external_version = "4.5"
+    jvm_external_sha = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1676badd9a6"
     http_archive(
         name = "rules_jvm_external",
-        sha256 = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1676badd9a6",
+        sha256 = jvm_external_sha,
         strip_prefix = "rules_jvm_external-4.5",
-        url = "https://github.com/bazelbuild/rules_jvm_external/archive/4.5.zip",
+        url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % jvm_external_version,
     )
 
 def io_bazel_rules_kotlin():
-    rules_kotlin_version = "1.7.0"
-    rules_kotlin_sha = "15afe2d727f0dba572e0ce58f1dac20aec1441422ca65f7c3f7671b47fd483bf"
+    rules_kotlin_version = "1.7.1"
+    rules_kotlin_sha = "fd92a98bd8a8f0e1cdcb490b93f5acef1f1727ed992571232d33de42395ca9b3"
     http_archive(
         name = "io_bazel_rules_kotlin",
-        urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin_release.tgz" % rules_kotlin_version],
+        urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin_release.tgz" % rules_kotlin_version],
         sha256 = rules_kotlin_sha,
     )
 
