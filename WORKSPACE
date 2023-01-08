@@ -3,14 +3,6 @@ workspace(name = "linuxcnc-grpc")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
 
-### linuxcnc git repo
-new_git_repository(
-    name = "linuxcnc",
-    build_file = "linuxcnc/linuxcnc.BUILD",
-    commit = "213e0ae91c9b26d9c86065ec438450cac4d1cc80",
-    remote = "https://github.com/LinuxCNC/linuxcnc.git",
-)
-
 # Proto
 http_archive(
     name = "rules_proto",
@@ -36,6 +28,7 @@ load(
     "grpc_kt_repositories",
     "io_bazel_rules_kotlin",
     "io_grpc_grpc_java",
+    "linuxcnc_local",
     "rules_jvm_external",
 )
 
@@ -46,6 +39,8 @@ io_bazel_rules_kotlin()
 io_grpc_grpc_java()
 
 com_github_grpc_grpc()
+
+linuxcnc_local()
 
 load(
     "@io_grpc_grpc_java//:repositories.bzl",
