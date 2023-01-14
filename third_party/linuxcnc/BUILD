@@ -1,30 +1,17 @@
-filegroup(
-    name = "simple_srcs",
-    srcs = glob(["**"]),
-    visibility = ["//visibility:public"],
-)
-
 cc_library(
-    name = "headers",
+    name = "linuxcnc",
+    srcs = glob([
+        "lib/**/*.so",
+        "lib/**/*.so.0",
+    ]),
     hdrs = glob([
-        "include/*.h",
-        "include/*.hh",
+        "include/**/*.h",
+        "include/**/*.hh",
+        "src/*.h",
     ]),
     copts = [
-        "-I/home/dragos/Apps/linuxcnc/include)",
-        "-I/home/dragos/Apps/linuxcnc/src)",
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
     ],
-    visibility = ["//visibility:public"],
-)
-
-cc_import(
-    name = "nml",
-    hdrs = glob([
-        "include/*.h",
-        "include/*.hh",
-        "src/*.h",
-        "src/*.hh",
-    ]),
-    shared_library = "lib/libnml.so",
     visibility = ["//visibility:public"],
 )

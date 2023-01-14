@@ -3,10 +3,21 @@ cc_library(
     srcs = [
         "emcDecode.cc",
     ],
-    deps = [
-        #        "@linuxcnc//:nml",
-        "@linuxcnc//:headers",
+    copts = [
+        "-Iexternal/linuxcnc/include",
     ],
+    deps = ["@linuxcnc"],
+)
+
+cc_library(
+    name = "status_reader",
+    srcs = ["status_reader.cc"],
+    hdrs = ["status_reader.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    deps = ["@linuxcnc"],
 )
 
 cc_binary(
@@ -14,10 +25,24 @@ cc_binary(
     srcs = [
         "linuxcnc_server.cc",
     ],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
     defines = ["BAZEL_BUILD"],
     deps = [
-        ":emc_decode",
+        ":status_reader",
         "//proto:linuxcnc_grpc",
         "@com_github_grpc_grpc//:grpc++",
     ],
+)
+
+cc_binary(
+    name = "test_nml",
+    srcs = ["TestNML.cc"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    deps = ["@linuxcnc"],
 )

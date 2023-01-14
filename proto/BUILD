@@ -18,6 +18,7 @@ proto_library(
     deps = [
         "//proto/hal:component_proto",
         "//proto/hal:pin_proto",
+        "//proto/status:task_status_proto",
     ],
 )
 
@@ -41,5 +42,6 @@ cc_grpc_library(
         ":linuxcnc_cc_proto",
         "//proto/hal:component_cc_proto",
         "//proto/hal:pin_cc_proto",
+        "//proto/status:task_status_cc_proto",
     ],
 )

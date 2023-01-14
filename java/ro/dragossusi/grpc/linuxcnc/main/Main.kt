@@ -4,6 +4,7 @@ import io.grpc.ManagedChannelBuilder
 import ro.dragossusi.proto.linuxcnc.CreateComponentRequest
 import ro.dragossusi.proto.linuxcnc.GetComponentsRequest
 import ro.dragossusi.proto.linuxcnc.LinuxCncGrpc
+import ro.dragossusi.proto.linuxcnc.ReadStatusRequest
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 
@@ -14,13 +15,20 @@ fun main() {
         .usePlaintext()
         .build()
     try {
-        val service = LinuxCncGrpc.newBlockingStub(channel)
-        service.addComp()
-        service.getComp()
+        LinuxCncGrpc.newBlockingStub(channel).apply {
+            addComp()
+            getComp()
+            readStatus()
+        }
     } finally {
         channel.shutdownNow()
             .awaitTermination(5, TimeUnit.SECONDS)
     }
+}
+
+private fun LinuxCncGrpc.LinuxCncBlockingStub.readStatus() {
+    val status = readStatus(ReadStatusRequest.newBuilder().build())
+    logger.info("Status: $status")
 }
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.addComp() {

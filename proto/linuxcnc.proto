@@ -4,6 +4,7 @@ package linuxcnc;
 
 import "proto/hal/pin.proto";
 import "proto/hal/component.proto";
+import "proto/status/task_status.proto";
 
 option java_package = "ro.dragossusi.proto.linuxcnc";
 option java_multiple_files = true;
@@ -26,7 +27,7 @@ message ReadStatusRequest {
 }
 
 message ReadStatusResponse {
-  bytes status = 1;
+  status.TaskStatus taskStatus = 1;
 }
 
 message GetComponentsRequest {
