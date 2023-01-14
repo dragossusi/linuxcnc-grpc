@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <thread>
 
 #include <grpcpp/grpcpp.h>
 
@@ -16,7 +17,7 @@ using grpc::ServerContext;
 using grpc::ServerWriter;
 using grpc::Status;
 using linuxcnc::CreateComponentRequest;
-using linuxcnc::CreateHalPinRequest;
+using linuxcnc::CreatePinRequest;
 using linuxcnc::GetComponentsRequest;
 using linuxcnc::GetComponentsResponse;
 using linuxcnc::GetPinsResponse;
@@ -25,6 +26,8 @@ using linuxcnc::HalPin;
 using linuxcnc::HalPinDir;
 using linuxcnc::HalPinType;
 using linuxcnc::LinuxCnc;
+using linuxcnc::ReadStatusRequest;
+using linuxcnc::ReadStatusResponse;
 
 std::map<std::string, HalComponent> componentsMap;
 
@@ -33,17 +36,14 @@ class LinuxCncServiceImpl final : public LinuxCnc::Service
 {
 
   Status GetComponents(ServerContext *context, const GetComponentsRequest *request,
-                       ServerWriter<GetComponentsResponse> *writer) override
+                       GetComponentsResponse *response) override
   {
     // todo
-    GetComponentsResponse response = GetComponentsResponse();
-
     for (const auto &[key, value] : componentsMap)
     {
-      const auto component = response.add_components();
+      const auto component = response->add_components();
       component->CopyFrom(value);
     }
-    writer->Write(response);
     return Status::OK;
   }
 
@@ -59,13 +59,13 @@ class LinuxCncServiceImpl final : public LinuxCnc::Service
   }
 
   Status GetPins(ServerContext *context, const HalComponent *request,
-                 ServerWriter<GetPinsResponse> *writer) override
+                 GetPinsResponse *response) override
   {
     // todo
     return Status::OK;
   }
 
-  Status CreatePin(ServerContext *context, const CreateHalPinRequest *request,
+  Status CreatePin(ServerContext *context, const CreatePinRequest *request,
                    HalPin *response) override
   {
     // todo
@@ -74,6 +74,13 @@ class LinuxCncServiceImpl final : public LinuxCnc::Service
     response->set_dir(HalPinDir::IN);
     response->set_component_id(0);
     response->set_component_name("test_comp");
+    return Status::OK;
+  }
+
+  Status ReadStatus(ServerContext *context, const ReadStatusRequest *request,
+                    ReadStatusResponse *response) override
+  {
+    // todo
     return Status::OK;
   }
 };

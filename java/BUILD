@@ -5,8 +5,8 @@ package_group(
 
 java_binary(
     name = "client",
-    main_class = "ro.dragossusi.grpc.linuxcnc.MainKt",
+    main_class = "ro.dragossusi.grpc.linuxcnc.main.MainKt",
     runtime_deps = [
-        "//java/ro/dragossusi/grpc/linuxcnc",
+        "//java/ro/dragossusi/grpc/linuxcnc/main",
     ],
 )

@@ -7,20 +7,18 @@ load("@com_github_grpc_grpc//bazel:grpc_build_system.bzl", "grpc_proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
-proto_library(
-    name = "linuxcnc_proto",
-    srcs = ["linuxcnc.proto"],
-)
-
-grpc_proto_library(
-    name = "linuxcnc_grpc",
-    srcs = ["linuxcnc.proto"],
-    deps = [],
-)
-
 java_proto_library(
     name = "linuxcnc_java_proto",
     deps = [":linuxcnc_proto"],
+)
+
+proto_library(
+    name = "linuxcnc_proto",
+    srcs = ["linuxcnc.proto"],
+    deps = [
+        "//proto/hal:component_proto",
+        "//proto/hal:pin_proto",
+    ],
 )
 
 java_grpc_library(
@@ -35,8 +33,13 @@ cc_proto_library(
 )
 
 cc_grpc_library(
-    name = "linuxcnc_cc_grpc",
+    name = "linuxcnc_grpc",
     srcs = [":linuxcnc_proto"],
     grpc_only = True,
-    deps = [":linuxcnc_cc_proto"],
+    #    has_services = True,
+    deps = [
+        ":linuxcnc_cc_proto",
+        "//proto/hal:component_cc_proto",
+        "//proto/hal:pin_cc_proto",
+    ],
 )

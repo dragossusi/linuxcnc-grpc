@@ -1,12 +1,10 @@
-package ro.dragossusi.grpc.linuxcnc
+package ro.dragossusi.grpc.linuxcnc.main
 
 import io.grpc.ManagedChannelBuilder
 import ro.dragossusi.proto.linuxcnc.CreateComponentRequest
 import ro.dragossusi.proto.linuxcnc.GetComponentsRequest
-import ro.dragossusi.proto.linuxcnc.GetComponentsResponse
 import ro.dragossusi.proto.linuxcnc.LinuxCncGrpc
 import java.util.concurrent.TimeUnit
-import java.util.logging.Level
 import java.util.logging.Logger
 
 private val logger = Logger.getLogger("Main")
@@ -36,8 +34,6 @@ private fun LinuxCncGrpc.LinuxCncBlockingStub.addComp() {
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.getComp() {
     val components = getComponents(GetComponentsRequest.newBuilder().build())
-    components.forEachRemaining { response: GetComponentsResponse ->
-        val list = response.componentsList
-        logger.info("Received ${list.size} components: $list")
-    }
+        .componentsList
+    logger.info("Received ${components.size} components: $components")
 }

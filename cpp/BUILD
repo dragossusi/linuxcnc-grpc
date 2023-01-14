@@ -17,7 +17,7 @@ cc_binary(
     defines = ["BAZEL_BUILD"],
     deps = [
         ":emc_decode",
-        "//proto:linuxcnc_cc_grpc",
+        "//proto:linuxcnc_grpc",
         "@com_github_grpc_grpc//:grpc++",
     ],
 )

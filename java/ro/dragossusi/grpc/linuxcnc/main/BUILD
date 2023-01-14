@@ -1,10 +1,11 @@
 load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
-    name = "linuxcnc",
-    srcs = glob(["*.kt"]),
+    name = "main",
+    srcs = ["Main.kt"],
     visibility = ["//java:visibility"],
     deps = [
+#        "//java/ro/dragossusi/grpc/linuxcnc",
         "//proto:linuxcnc_java_grpc",
         "//proto:linuxcnc_java_proto",
         "@com_google_protobuf//:protobuf_java",

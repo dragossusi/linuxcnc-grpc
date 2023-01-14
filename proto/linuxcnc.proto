@@ -2,54 +2,35 @@ syntax = "proto3";
 
 package linuxcnc;
 
+import "proto/hal/pin.proto";
+import "proto/hal/component.proto";
+
 option java_package = "ro.dragossusi.proto.linuxcnc";
 option java_multiple_files = true;
 
-enum HalPinType {
-  TYPE_UNSPECIFIED = 0;
-  TYPE_UNINITIALIZED = 1;
-  TYPE_BIT = 2;
-  FLOAT = 3;
-  S32 = 4;
-  U32 = 5;
-  PORT = 6;
+service LinuxCnc {
+  rpc ReadStatus(ReadStatusRequest) returns (ReadStatusResponse);
+
+  rpc GetComponents(GetComponentsRequest) returns (GetComponentsResponse);
+
+  rpc CreateComponent (CreateComponentRequest) returns (HalComponent);
+
+  rpc GetPins(HalComponent) returns (GetPinsResponse);
+
+  rpc CreatePin (CreatePinRequest) returns (HalPin);
+
 }
 
-enum HalPinDir {
-  DIR_UNSPECIFIED = 0;
-  IN = 1;
-  OUT = 2;
-  IO = 3;
+message ReadStatusRequest {
+  int64 interval = 1;
 }
 
-message HalPin {
-  string name = 1;
-  HalPinType type = 2;
-  HalPinDir dir = 3;
-  int32 component_id = 4;
-  string component_name = 5;
-}
-
-message CreateHalPinRequest {
-  string name = 1;
-  HalPinType type = 2;
-}
-
-message HalComponent {
-  int32 component_id = 1;
-  string name = 2;
+message ReadStatusResponse {
+  bytes status = 1;
 }
 
 message GetComponentsRequest {
   // empty
-}
-
-message GetComponentsResponse {
-  repeated HalComponent components = 1;
-}
-
-message GetPinsResponse {
-  repeated HalComponent components = 1;
 }
 
 message CreateComponentRequest {
@@ -58,16 +39,15 @@ message CreateComponentRequest {
 
 message CreatePinRequest {
   string componentId = 1;
-  float value = 2;
+  string name = 2;
+  HalPinType type = 3;
+  float value = 4;
 }
 
-service LinuxCnc {
-  rpc GetComponents(GetComponentsRequest) returns (stream GetComponentsResponse);
+message GetComponentsResponse {
+  repeated HalComponent components = 1;
+}
 
-  rpc CreateComponent (CreateComponentRequest) returns (HalComponent);
-
-  rpc GetPins(HalComponent) returns (stream GetPinsResponse);
-
-  rpc CreatePin (CreateHalPinRequest) returns (HalPin);
-
+message GetPinsResponse {
+  repeated HalPin pins = 1;
 }
