@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package linuxcnc.status;
+
+import "proto/status/position.proto";
+import "proto/status/axis/axis.proto";
+
+option java_package = "ro.dragossusi.proto.linuxcnc.status";
+option java_multiple_files = true;
+
+message MotionStatus {
+
+  // todo traj
+  // todo joint
+  repeated AxisStatus axisStatus = 3;
+  // todo spindle
+
+  /** Motion inputs queried by interp*/
+  repeated int32 synch_di = 5;
+  /** Motion outputs queried by interp*/
+  repeated int32 synch_do = 6;
+  
+  /** Motion analog inputs queried by interp*/
+  repeated double analog_input = 7;
+  /** Motion analog outputs queried by interp*/
+  repeated double analog_output = 8;
+  
+  repeated int32 misc_error = 9;
+  
+  /** Copy of EMC_DEBUG global */
+  int32 debug = 10;
+
+  int32 on_soft_limit = 11;
+  int32 external_offsets_applied = 12;
+  Position eoffset_pose = 13;
+  int32 numExtraJoints = 14;
+  bool jogging_active = 15;
+}

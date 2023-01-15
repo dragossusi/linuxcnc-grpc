@@ -4,11 +4,11 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 package(default_visibility = ["//visibility:public"])
 
 proto_library(
-    name = "tool_proto",
-    srcs = ["tool.proto"],
+    name = "axis_proto",
+    srcs = ["axis.proto"],
 )
 
 cc_proto_library(
-    name = "tool_cc_proto",
-    deps = [":tool_proto"],
+    name = "axis_cc_proto",
+    deps = [":axis_proto"],
 )

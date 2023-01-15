@@ -4,7 +4,9 @@ package linuxcnc;
 
 import "proto/hal/pin.proto";
 import "proto/hal/component.proto";
-import "proto/status/task/task_status.proto";
+import "proto/status/task/task.proto";
+import "proto/status/io/io.proto";
+import "proto/status/motion/motion.proto";
 
 option java_package = "ro.dragossusi.proto.linuxcnc";
 option java_multiple_files = true;
@@ -23,13 +25,17 @@ service LinuxCnc {
 
 message ReadStatusRequest {}
 
-message CncStatus {status.TaskStatus taskStatus = 1;}
+message CncStatus {
+  status.TaskStatus taskStatus = 1;
+  status.IoStatus ioStatus = 2;
+  status.MotionStatus motionStatus = 3;
+}
 
 message GetComponentsRequest {
   // empty
 }
 
-message CreateComponentRequest {string name = 1;}
+message CreateComponentRequest { string name = 1; }
 
 message CreatePinRequest {
   string componentId = 1;
@@ -38,6 +44,6 @@ message CreatePinRequest {
   float value = 4;
 }
 
-message GetComponentsResponse {repeated HalComponent components = 1;}
+message GetComponentsResponse { repeated HalComponent components = 1; }
 
-message GetPinsResponse {repeated HalPin pins = 1;}
+message GetPinsResponse { repeated HalPin pins = 1; }

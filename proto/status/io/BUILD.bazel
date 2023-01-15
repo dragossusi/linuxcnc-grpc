@@ -4,14 +4,17 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 package(default_visibility = ["//visibility:public"])
 
 proto_library(
-    name = "io_status_proto",
-    srcs = ["io_status.proto"],
+    name = "io_proto",
+    srcs = ["io.proto"],
     deps = [
-        "//proto/status/tool:tool_status_proto",
+        "//proto/status/aux:aux_proto",
+        "//proto/status/coolant:coolant_proto",
+        "//proto/status/lube:lube_proto",
+        "//proto/status/tool:tool_proto",
     ],
 )
 
 cc_proto_library(
-    name = "io_status_cc_proto",
-    deps = [":io_status_proto"],
+    name = "io_cc_proto",
+    deps = [":io_proto"],
 )

@@ -4,15 +4,15 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 package(default_visibility = ["//visibility:public"])
 
 proto_library(
-    name = "task_proto",
-    srcs = ["task.proto"],
+    name = "motion_proto",
+    srcs = ["motion.proto"],
     deps = [
-        "//proto/status:length_unit_proto",
         "//proto/status:position_proto",
+        "//proto/status/axis:axis_proto",
     ],
 )
 
 cc_proto_library(
-    name = "task_cc_proto",
-    deps = [":task_proto"],
+    name = "motion_cc_proto",
+    deps = [":motion_proto"],
 )

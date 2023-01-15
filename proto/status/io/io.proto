@@ -5,7 +5,10 @@ package linuxcnc.status;
 option java_package = "ro.dragossusi.proto.linuxcnc.status";
 option java_multiple_files = true;
 
-import "proto/status/tool/tool_status.proto";
+import "proto/status/tool/tool.proto";
+import "proto/status/coolant/coolant.proto";
+import "proto/status/aux/aux.proto";
+import "proto/status/lube/lube.proto";
 
 message IoStatus {
   double cycleTime = 1;
@@ -13,11 +16,9 @@ message IoStatus {
    * Not sure what this is
    */
   int32 reason = 2;
-  bool isM6Fault = 3;
+  int32 fault = 3;
   ToolStatus toolStatus = 4;
-  bool isMistOn = 5;
-  bool isFloodOn = 6;
-  bool isEstopActive = 7;
-  bool isLubePumpOn = 8;
-  bool isLubeLevelOk = 9;
+  CoolantStatus coolantstatus = 5;
+  AuxStatus auxStatus = 6;
+  LubeStatus lubeStatus = 7;
 }

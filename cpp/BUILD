@@ -1,15 +1,4 @@
 cc_library(
-    name = "emc_decode",
-    srcs = [
-        "emcDecode.cc",
-    ],
-    copts = [
-        "-Iexternal/linuxcnc/include",
-    ],
-    deps = ["@linuxcnc"],
-)
-
-cc_library(
     name = "status_reader",
     srcs = ["status_reader.cc"],
     hdrs = ["status_reader.hh"],
@@ -22,7 +11,7 @@ cc_library(
         "//proto:linuxcnc_cc_proto",
         "//proto/status:length_unit_cc_proto",
         "//proto/status:position_cc_proto",
-        "//proto/status/task:task_status_cc_proto",
+        "//proto/status/task:task_cc_proto",
         "@linuxcnc",
     ],
 )
