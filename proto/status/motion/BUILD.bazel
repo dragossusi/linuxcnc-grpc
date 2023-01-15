@@ -9,6 +9,9 @@ proto_library(
     deps = [
         "//proto/status:position_proto",
         "//proto/status/axis:axis_proto",
+        "//proto/status/joint:joint_proto",
+        "//proto/status/spindle:spindle_proto",
+        "//proto/status/traj:traj_proto",
     ],
 )
 

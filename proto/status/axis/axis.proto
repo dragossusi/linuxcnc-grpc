@@ -8,5 +8,6 @@ option java_multiple_files = true;
 message AxisStatus {
   double minPositionLimit = 1;
   double maxPositionLimit = 2;
-  double currentVelocity = 3;
+  /** Current velocity. */
+  double velocity = 3;
 }

@@ -9,32 +9,42 @@ message JointStatus {
   /**
    * EMC_JOINT_LINEAR; EMC_JOINT_ANGULAR
    */
-  bool jointType = 1;
+  bool joint_type = 1;
   /**
    * Units per mm - linear; or degrees - angular
    */
   double units = 2;
   double backlash = 3;
-  double minPositionLimit = 4;
-  double maxPositionLimit = 5;
-  double minFollowingError = 6;
-  double maxFollowingError = 7;
-  double currentFollowingError = 8;
+  double min_position_limit = 4;
+  double max_position_limit = 5;
+
+  double min_following_error = 6;
+  double max_following_error = 7;
+
+  double current_following_error = 8;
   /**
    * Magnitude of max following error.
    */
-  double currentFollowingErrorHighMark = 9;
-  double commandedOutputPosition = 10;
-  double currentInputPosition = 11;
-  double currentVelocity = 12;
-  bool isInPosition = 13;
-  bool isHoming = 14;
-  bool isHomed = 15;
-  bool isAmpFault = 16;
-  bool isEnabled = 17;
-  bool minSoftLimitExceeded = 18;
-  bool maxSoftLimitExceeded = 19;
-  bool minHardLimitExceeded = 20;
-  bool maxHardLimitExceeded = 21;
-  bool isOverridingLimits = 22;
+  double current_following_error_high_mark = 9;
+
+  double commanded_output_position = 10;
+
+  double current_input_position = 11;
+  double current_velocity = 12;
+  
+  bool in_position = 13;
+
+  bool homing = 14;
+  bool homed = 15;
+
+  bool amp_fault = 16;
+  bool enabled = 17;
+
+  bool min_soft_limit_exceeded = 18;
+  bool max_soft_limit_exceeded = 19;
+
+  bool min_hard_limit_exceeded = 20;
+  bool max_hard_limit_exceeded = 21;
+  
+  bool overriding_limits = 22;
 }

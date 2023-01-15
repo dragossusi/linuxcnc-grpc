@@ -37,9 +37,6 @@ def grpc_kt_repositories():
     if not native.existing_rule("io_grpc_grpc_java"):
         io_grpc_grpc_java()
 
-#    if not native.existing_rule("com_github_grpc_grpc"):
-#        com_github_grpc_grpc()
-
 def rules_jvm_external():
     jvm_external_version = "4.5"
     jvm_external_sha = "b17d7388feb9bfa7f2fa09031b32707df529f26c91ab9e5d909eb1676badd9a6"
@@ -68,6 +65,15 @@ def com_google_protobuf():
         sha256 = protobuf_sha,
         strip_prefix = "protobuf-%s" % protobuf_version,
         urls = ["https://github.com/protocolbuffers/protobuf/releases/download/v%s/protobuf-all-%s.tar.gz" % (protobuf_version, protobuf_version)],
+    )
+
+def com_github_grpc_grpc_kotlin():
+    grpc_kotlin_version = "1.3.0"
+
+    http_archive(
+        name = "com_github_grpc_grpc_kotlin",
+        strip_prefix = "grpc-kotlin-%s" % grpc_kotlin_version,
+        urls = ["https://github.com/grpc/grpc-kotlin/archive/refs/tags/v%s.tar.gz" % (grpc_kotlin_version)],
     )
 
 def io_grpc_grpc_java():

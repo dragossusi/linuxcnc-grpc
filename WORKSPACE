@@ -29,6 +29,7 @@ load(
     "io_grpc_grpc_java",
     "linuxcnc_local",
     "rules_jvm_external",
+    "com_github_grpc_grpc_kotlin"
 )
 
 rules_jvm_external()
@@ -40,6 +41,8 @@ io_grpc_grpc_java()
 com_github_grpc_grpc()
 
 linuxcnc_local()
+
+com_github_grpc_grpc_kotlin()
 
 load(
     "@io_grpc_grpc_java//:repositories.bzl",

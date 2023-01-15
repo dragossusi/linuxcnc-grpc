@@ -27,8 +27,8 @@ message ReadStatusRequest {}
 
 message CncStatus {
   status.TaskStatus taskStatus = 1;
-  status.IoStatus ioStatus = 2;
-  status.MotionStatus motionStatus = 3;
+  status.MotionStatus motionStatus = 2;
+  status.IoStatus ioStatus = 3;
 }
 
 message GetComponentsRequest {

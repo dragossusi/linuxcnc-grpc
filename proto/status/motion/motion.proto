@@ -4,16 +4,22 @@ package linuxcnc.status;
 
 import "proto/status/position.proto";
 import "proto/status/axis/axis.proto";
+import "proto/status/traj/traj.proto";
+import "proto/status/joint/joint.proto";
+import "proto/status/spindle/spindle.proto";
 
 option java_package = "ro.dragossusi.proto.linuxcnc.status";
 option java_multiple_files = true;
 
 message MotionStatus {
 
-  // todo traj
-  // todo joint
-  repeated AxisStatus axisStatus = 3;
-  // todo spindle
+  TrajectoryStatus trajectory_status = 1;
+
+  repeated JointStatus joint_status = 2;
+
+  repeated AxisStatus axis_status = 3;
+
+  repeated SpindleStatus spindle_status = 4;
 
   /** Motion inputs queried by interp*/
   repeated int32 synch_di = 5;

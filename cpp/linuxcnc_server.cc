@@ -99,7 +99,7 @@ public:
     cout << "Read status received" << std::endl;
 
     cout << "Refreshing status" << std::endl;
-    // todo
+    
     int result = statusReader.refreshStatus();
     if (result != 0)
     {
