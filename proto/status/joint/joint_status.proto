@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package linuxcnc.status;
+
+option java_package = "ro.dragossusi.proto.linuxcnc.status";
+option java_multiple_files = true;
+
+message JointStatus {
+  /**
+   * EMC_JOINT_LINEAR; EMC_JOINT_ANGULAR
+   */
+  bool jointType = 1;
+  /**
+   * Units per mm - linear; or degrees - angular
+   */
+  double units = 2;
+  double backlash = 3;
+  double minPositionLimit = 4;
+  double maxPositionLimit = 5;
+  double minFollowingError = 6;
+  double maxFollowingError = 7;
+  double currentFollowingError = 8;
+  /**
+   * Magnitude of max following error.
+   */
+  double currentFollowingErrorHighMark = 9;
+  double commandedOutputPosition = 10;
+  double currentInputPosition = 11;
+  double currentVelocity = 12;
+  bool isInPosition = 13;
+  bool isHoming = 14;
+  bool isHomed = 15;
+  bool isAmpFault = 16;
+  bool isEnabled = 17;
+  bool minSoftLimitExceeded = 18;
+  bool maxSoftLimitExceeded = 19;
+  bool minHardLimitExceeded = 20;
+  bool maxHardLimitExceeded = 21;
+  bool isOverridingLimits = 22;
+}

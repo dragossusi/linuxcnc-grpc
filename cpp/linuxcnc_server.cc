@@ -14,8 +14,6 @@
 #include "proto/linuxcnc.grpc.pb.h"
 #endif
 
-#include "emc_nml.hh"
-
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
@@ -33,68 +31,12 @@ using linuxcnc::HalPinDir;
 using linuxcnc::HalPinType;
 using linuxcnc::LinuxCnc;
 using linuxcnc::ReadStatusRequest;
-using linuxcnc::ReadStatusResponse;
-using linuxcnc::status::ActiveCodes;
-using linuxcnc::status::InterpreterState;
-using linuxcnc::status::TaskExecState;
-using linuxcnc::status::TaskMode;
-using linuxcnc::status::TaskState;
-using linuxcnc::status::TaskStatus;
+using linuxcnc::CncStatus;
 using std::any;
 using std::cout;
 using std::map;
 using std::string;
 using std::unique_ptr;
-
-TaskMode getTaskMode(EMC_TASK_MODE_ENUM mode)
-{
-  return TaskMode(mode - 1);
-}
-
-TaskState getTaskState(EMC_TASK_STATE_ENUM mode)
-{
-  return TaskState(mode - 1);
-}
-
-TaskExecState getTaskExecState(EMC_TASK_EXEC_ENUM mode)
-{
-  return TaskExecState(mode - 1);
-}
-
-InterpreterState getInterpreterState(EMC_TASK_INTERP_ENUM mode)
-{
-  return InterpreterState(mode - 1);
-}
-
-ActiveCodes *getActiveCodes(int gCodes[], int mCodes[])
-{
-  ActiveCodes *codes = new ActiveCodes();
-
-  // gCodes
-  for (int i = 0; i < sizeof(gCodes); ++i)
-  {
-    codes->add_gcodes(gCodes[i]);
-  }
-
-  // mCodes
-  for (int i = 0; i < sizeof(mCodes); ++i)
-  {
-    codes->add_mcodes(mCodes[i]);
-  }
-  return codes;
-}
-
-TaskStatus *getTaskStatus(EMC_TASK_STAT task)
-{
-  TaskStatus *status = new TaskStatus();
-  status->set_taskmode(getTaskMode(task.mode));
-  status->set_taskstate(getTaskState(task.state));
-  status->set_execstate(getTaskExecState(task.execState));
-  status->set_interpreterstate(getInterpreterState(task.interpState));
-  status->set_allocated_activecodes(getActiveCodes(task.activeGCodes, task.activeMCodes));
-  // todo set fields
-  return status;
-}
 
 // Logic and data behind the server's behavior.
 class LinuxCncServiceImpl final : public LinuxCnc::Service
@@ -108,6 +50,7 @@ public:
   Status GetComponents(ServerContext *context, const GetComponentsRequest *request,
                        GetComponentsResponse *response) override
   {
+    cout << "Get Components received" << std::endl;
     // todo
     for (const auto &[key, value] : componentsMap)
     {
@@ -120,6 +63,7 @@ public:
   Status CreateComponent(ServerContext *context, const CreateComponentRequest *request,
                          HalComponent *response) override
   {
+    cout << "Create Component received" << std::endl;
     // todo
     string compName = request->name();
     response->set_name(request->name());
@@ -131,6 +75,7 @@ public:
   Status GetPins(ServerContext *context, const HalComponent *request,
                  GetPinsResponse *response) override
   {
+    cout << "Get Pins received";
     // todo
     return Status::OK;
   }
@@ -138,6 +83,7 @@ public:
   Status CreatePin(ServerContext *context, const CreatePinRequest *request,
                    HalPin *response) override
   {
+    cout << "Create Pin received" << std::endl;
     // todo
     response->set_name("test_pin");
     response->set_type(HalPinType::FLOAT);
@@ -148,8 +94,11 @@ public:
   }
 
   Status ReadStatus(ServerContext *context, const ReadStatusRequest *request,
-                    ReadStatusResponse *response) override
+                    CncStatus *response) override
   {
+    cout << "Read status received" << std::endl;
+
+    cout << "Refreshing status" << std::endl;
     // todo
     int result = statusReader.refreshStatus();
     if (result != 0)
@@ -157,11 +106,7 @@ public:
       return Status(StatusCode::INTERNAL, "Failed to refresh status " + std::to_string(result));
     }
 
-    auto status = std::any_cast<EMC_STAT>(statusReader.getStatus());
-
-    TaskStatus *taskStatus = getTaskStatus(status.task);
-
-    response->set_allocated_taskstatus(taskStatus);
+    statusReader.setStatus(response);
     return Status::OK;
   }
 };

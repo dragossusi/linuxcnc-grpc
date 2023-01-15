@@ -4,39 +4,32 @@ package linuxcnc;
 
 import "proto/hal/pin.proto";
 import "proto/hal/component.proto";
-import "proto/status/task_status.proto";
+import "proto/status/task/task_status.proto";
 
 option java_package = "ro.dragossusi.proto.linuxcnc";
 option java_multiple_files = true;
 
 service LinuxCnc {
-  rpc ReadStatus(ReadStatusRequest) returns (ReadStatusResponse);
+  rpc ReadStatus(ReadStatusRequest) returns (CncStatus);
 
   rpc GetComponents(GetComponentsRequest) returns (GetComponentsResponse);
 
-  rpc CreateComponent (CreateComponentRequest) returns (HalComponent);
+  rpc CreateComponent(CreateComponentRequest) returns (HalComponent);
 
   rpc GetPins(HalComponent) returns (GetPinsResponse);
 
-  rpc CreatePin (CreatePinRequest) returns (HalPin);
-
+  rpc CreatePin(CreatePinRequest) returns (HalPin);
 }
 
-message ReadStatusRequest {
-  int64 interval = 1;
-}
+message ReadStatusRequest {}
 
-message ReadStatusResponse {
-  status.TaskStatus taskStatus = 1;
-}
+message CncStatus {status.TaskStatus taskStatus = 1;}
 
 message GetComponentsRequest {
   // empty
 }
 
-message CreateComponentRequest {
-  string name = 1;
-}
+message CreateComponentRequest {string name = 1;}
 
 message CreatePinRequest {
   string componentId = 1;
@@ -45,10 +38,6 @@ message CreatePinRequest {
   float value = 4;
 }
 
-message GetComponentsResponse {
-  repeated HalComponent components = 1;
-}
+message GetComponentsResponse {repeated HalComponent components = 1;}
 
-message GetPinsResponse {
-  repeated HalPin pins = 1;
-}
+message GetPinsResponse {repeated HalPin pins = 1;}

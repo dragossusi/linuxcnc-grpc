@@ -1,0 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+package(default_visibility = ["//visibility:public"])
+
+proto_library(
+    name = "joint_status_proto",
+    srcs = ["joint_status.proto"],
+    deps = ["//proto/status/tool:tool_status_proto"],
+)
+
+cc_proto_library(
+    name = "joint_status_cc_proto",
+    deps = [":joint_status_proto"],
+)

@@ -17,7 +17,14 @@ cc_library(
         "-Iexternal/linuxcnc/include",
         "-Iexternal/linuxcnc/src",
     ],
-    deps = ["@linuxcnc"],
+    defines = ["BAZEL_BUILD"],
+    deps = [
+        "//proto:linuxcnc_cc_proto",
+        "//proto/status:length_unit_cc_proto",
+        "//proto/status:position_cc_proto",
+        "//proto/status/task:task_status_cc_proto",
+        "@linuxcnc",
+    ],
 )
 
 cc_binary(

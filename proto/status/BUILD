@@ -13,15 +13,6 @@ proto_library(
     srcs = ["position.proto"],
 )
 
-proto_library(
-    name = "task_status_proto",
-    srcs = ["task_status.proto"],
-    deps = [
-        ":length_unit_proto",
-        ":position_proto",
-    ],
-)
-
 cc_proto_library(
     name = "length_unit_cc_proto",
     deps = [":length_unit_proto"],
@@ -30,11 +21,4 @@ cc_proto_library(
 cc_proto_library(
     name = "position_cc_proto",
     deps = [":position_proto"],
-)
-
-cc_proto_library(
-    name = "task_status_cc_proto",
-    deps = [
-        ":task_status_proto",
-    ],
 )

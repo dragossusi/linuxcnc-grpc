@@ -1,13 +1,15 @@
 #pragma once
 
-#include <any>
+#include <iostream>
 
-using std::any;
+#include "proto/linuxcnc.pb.h"
+
+using linuxcnc::CncStatus;
 
 class StatusReader
 {
 public:
     StatusReader();
     int refreshStatus();
-    any getStatus();
+    bool setStatus(CncStatus *cncStatus);
 };

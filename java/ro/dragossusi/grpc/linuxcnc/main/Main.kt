@@ -16,8 +16,8 @@ fun main() {
         .build()
     try {
         LinuxCncGrpc.newBlockingStub(channel).apply {
-            addComp()
-            getComp()
+//            addComp()
+//            getComp()
             readStatus()
         }
     } finally {
@@ -27,7 +27,9 @@ fun main() {
 }
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.readStatus() {
-    val status = readStatus(ReadStatusRequest.newBuilder().build())
+    val request = ReadStatusRequest.newBuilder().build()
+    val status = readStatus(request)
+
     logger.info("Status: $status")
 }
 
