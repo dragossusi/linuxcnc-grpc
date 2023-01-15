@@ -1,10 +1,7 @@
 package ro.dragossusi.grpc.linuxcnc.main
 
 import io.grpc.ManagedChannelBuilder
-import ro.dragossusi.proto.linuxcnc.CreateComponentRequest
-import ro.dragossusi.proto.linuxcnc.GetComponentsRequest
-import ro.dragossusi.proto.linuxcnc.LinuxCncGrpc
-import ro.dragossusi.proto.linuxcnc.ReadStatusRequest
+import ro.dragossusi.proto.linuxcnc.*
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 
@@ -16,8 +13,8 @@ fun main() {
         .build()
     try {
         LinuxCncGrpc.newBlockingStub(channel).apply {
-//            addComp()
-//            getComp()
+            addComp()
+            getComp()
             readStatus()
         }
     } finally {
@@ -27,23 +24,26 @@ fun main() {
 }
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.readStatus() {
-    val request = ReadStatusRequest.newBuilder().build()
+    val request = readStatusRequest {
+        // no-op
+    }
     val status = readStatus(request)
 
     logger.info("Status: \n$status")
 }
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.addComp() {
-    val component = createComponent(
-        CreateComponentRequest.newBuilder()
-            .setName("test_comp")
-            .build()
-    )
-    logger.info("Created component: $component")
+    val request = createComponentRequest {
+        name = "test_comp"
+    }
+    val component = createComponent(request)
+    logger.info("Created component: \n$component")
 }
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.getComp() {
-    val components = getComponents(GetComponentsRequest.newBuilder().build())
-        .componentsList
-    logger.info("Received ${components.size} components: $components")
+    val request = getComponentsRequest {
+        // no-op
+    }
+    val components = getComponents(request).componentsList
+    logger.info("Received ${components.size} components: \n$components")
 }

@@ -8,11 +8,7 @@ load("@com_github_grpc_grpc_kotlin//:kt_jvm_grpc.bzl", "kt_jvm_grpc_library", "k
 
 package(default_visibility = ["//visibility:public"])
 
-java_proto_library(
-    name = "linuxcnc_java_proto",
-    deps = [":linuxcnc_proto"],
-)
-
+#proto
 proto_library(
     name = "linuxcnc_proto",
     srcs = ["linuxcnc.proto"],
@@ -25,10 +21,22 @@ proto_library(
     ],
 )
 
+# java
+java_proto_library(
+    name = "linuxcnc_java_proto",
+    deps = [":linuxcnc_proto"],
+)
+
 java_grpc_library(
     name = "linuxcnc_java_grpc",
     srcs = [":linuxcnc_proto"],
     deps = [":linuxcnc_java_proto"],
+)
+
+# kotlin
+kt_jvm_proto_library(
+    name = "linuxcnc_kt_proto",
+    deps = [":linuxcnc_proto"],
 )
 
 kt_jvm_grpc_library(
@@ -37,6 +45,7 @@ kt_jvm_grpc_library(
     deps = [":linuxcnc_java_proto"],
 )
 
+# c++
 cc_proto_library(
     name = "linuxcnc_cc_proto",
     deps = [":linuxcnc_proto"],
