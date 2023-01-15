@@ -30,7 +30,7 @@ private fun LinuxCncGrpc.LinuxCncBlockingStub.readStatus() {
     val request = ReadStatusRequest.newBuilder().build()
     val status = readStatus(request)
 
-    logger.info("Status: $status")
+    logger.info("Status: \n$status")
 }
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.addComp() {

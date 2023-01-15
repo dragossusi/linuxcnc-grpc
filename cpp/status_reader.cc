@@ -1,4 +1,3 @@
-#include <any>
 #include <iostream>
 #include <config.h>
 #include "status_reader.hh"
@@ -10,13 +9,18 @@ static EMC_STAT *status;
 
 using linuxcnc::CncStatus;
 using linuxcnc::status::ActiveCodes;
+using linuxcnc::status::AuxStatus;
+using linuxcnc::status::CoolantStatus;
 using linuxcnc::status::InterpreterState;
+using linuxcnc::status::IoStatus;
 using linuxcnc::status::LengthUnit;
+using linuxcnc::status::LubeStatus;
 using linuxcnc::status::Position;
 using linuxcnc::status::TaskExecState;
 using linuxcnc::status::TaskMode;
 using linuxcnc::status::TaskState;
 using linuxcnc::status::TaskStatus;
+using linuxcnc::status::ToolStatus;
 
 TaskMode getTaskMode(EMC_TASK_MODE_ENUM mode)
 {
@@ -43,7 +47,7 @@ ActiveCodes *getActiveCodes(EMC_TASK_STAT task)
     ActiveCodes *codes = new ActiveCodes();
 
     // gCodes
-    for (int i = 0; i < ACTIVE_G_CODES ; ++i)
+    for (int i = 0; i < ACTIVE_G_CODES; ++i)
     {
         codes->add_gcodes(task.activeGCodes[i]);
     }
@@ -145,6 +149,59 @@ TaskStatus *getTaskStatus(EMC_TASK_STAT task)
     return status;
 }
 
+ToolStatus *getToolStatus(EMC_TOOL_STAT tool)
+{
+    ToolStatus *status = new ToolStatus();
+    status->set_pocketprepared(tool.pocketPrepped);
+    status->set_toolinspindle(tool.toolInSpindle);
+    status->set_toolfrompocket(tool.toolInSpindle);
+    return status;
+}
+
+CoolantStatus *getCoolantStatus(EMC_COOLANT_STAT coolant)
+{
+    CoolantStatus *status = new CoolantStatus();
+
+    status->set_mist((bool)coolant.mist);
+    status->set_flood((bool)coolant.flood);
+
+    return status;
+}
+
+AuxStatus *getAuxStatus(EMC_AUX_STAT aux)
+{
+    AuxStatus *status = new AuxStatus();
+
+    status->set_estop((bool)aux.estop);
+
+    return status;
+}
+
+LubeStatus *getLubeStatus(EMC_LUBE_STAT lube)
+{
+    LubeStatus *status = new LubeStatus();
+
+    status->set_on(lube.on);
+    status->set_level(lube.level);
+
+    return status;
+}
+
+IoStatus *getIoStatus(EMC_IO_STAT io)
+{
+    IoStatus *status = new IoStatus();
+
+    status->set_cycletime(io.cycleTime);
+    status->set_reason(io.reason);
+    status->set_fault(io.fault);
+    status->set_allocated_toolstatus(getToolStatus(io.tool));
+    status->set_allocated_coolantstatus(getCoolantStatus(io.coolant));
+    status->set_allocated_auxstatus(getAuxStatus(io.aux));
+    status->set_allocated_lubestatus(getLubeStatus(io.lube));
+
+    return status;
+}
+
 StatusReader::StatusReader()
 {
     cStat = new RCS_STAT_CHANNEL(emcFormat, "emcStatus", "xemc", EMC2_DEFAULT_NMLFILE);
@@ -175,6 +232,8 @@ int StatusReader::refreshStatus()
 bool StatusReader::setStatus(CncStatus *cncStatus)
 {
     TaskStatus *taskStatus = getTaskStatus(status->task);
+    IoStatus *ioStatus = getIoStatus(status->io);
     cncStatus->set_allocated_taskstatus(taskStatus);
+    cncStatus->set_allocated_iostatus(ioStatus);
     return true;
 }
