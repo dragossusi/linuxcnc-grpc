@@ -34,14 +34,14 @@ message TrajectoryStatus {
   TrajectoryMode mode = 7;
   bool enabled = 8;
 
-  bool inPosition = 9;
+  bool in_position = 9;
 
   /** Number of pending motions, counting*/
   int32 queue = 10;
 
   // current
-  int32 activeQueue = 11;  // number of motions blending
-  bool queueFull = 12;     // non-zero means can't accept another motion
+  int32 active_queue = 11;  // number of motions blending
+  bool queue_full = 12;     // non-zero means can't accept another motion
   int32 id = 13;           // id of the currently executing motion
   bool paused = 14;        // non-zero means motion paused
   double scale = 15;       // velocity scale factor
@@ -49,14 +49,14 @@ message TrajectoryStatus {
   // double spindle_scale;	// moved to EMC_SPINDLE_STAT
 
   Position position = 17;       // current commanded position
-  Position actualPosition = 18; // current actual position, from forward kins
+  Position actual_position = 18; // current actual position, from forward kins
   double velocity = 19;         // system velocity, for subsequent motions
   double acceleration = 20;     // system acceleration, for subsequent
   // motions
-  double maxVelocity = 21;     // max system velocity
-  double maxAcceleration = 22; // system acceleration
+  double max_velocity = 21;     // max system velocity
+  double max_acceleration = 22; // system acceleration
 
-  Position probedPosition = 23; // last position where probe was tripped.
+  Position probed_position = 23; // last position where probe was tripped.
   bool probe_tripped = 24;      // Has the probe been tripped since the last
   // clear.
   bool probing = 25; // Are we currently looking for a probe

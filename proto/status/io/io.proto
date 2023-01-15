@@ -11,14 +11,14 @@ import "proto/status/aux/aux.proto";
 import "proto/status/lube/lube.proto";
 
 message IoStatus {
-  double cycleTime = 1;
+  double cycle_time = 1;
   /**
    * Not sure what this is
    */
   int32 reason = 2;
   int32 fault = 3;
-  ToolStatus toolStatus = 4;
-  CoolantStatus coolantstatus = 5;
-  AuxStatus auxStatus = 6;
-  LubeStatus lubeStatus = 7;
+  ToolStatus tool_status = 4;
+  CoolantStatus coolant_status = 5;
+  AuxStatus aux_status = 6;
+  LubeStatus lube_status = 7;
 }

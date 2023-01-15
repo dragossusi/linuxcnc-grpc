@@ -6,8 +6,8 @@ option java_package = "ro.dragossusi.proto.linuxcnc.status";
 option java_multiple_files = true;
 
 message AxisStatus {
-  double minPositionLimit = 1;
-  double maxPositionLimit = 2;
+  double min_position_limit = 1;
+  double max_position_limit = 2;
   /** Current velocity. */
   double velocity = 3;
 }

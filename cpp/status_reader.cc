@@ -55,13 +55,13 @@ ActiveCodes *getActiveCodes(EMC_TASK_STAT task)
     // gCodes
     for (int i = 0; i < ACTIVE_G_CODES; ++i)
     {
-        codes->add_gcodes(task.activeGCodes[i]);
+        codes->add_g_codes(task.activeGCodes[i]);
     }
 
     // mCodes
     for (int i = 0; i < ACTIVE_M_CODES; ++i)
     {
-        codes->add_mcodes(task.activeMCodes[i]);
+        codes->add_m_codes(task.activeMCodes[i]);
     }
     return codes;
 }
@@ -158,9 +158,9 @@ TaskStatus *getTaskStatus(EMC_TASK_STAT task)
 ToolStatus *getToolStatus(EMC_TOOL_STAT tool)
 {
     ToolStatus *status = new ToolStatus();
-    status->set_pocketprepared(tool.pocketPrepped);
-    status->set_toolinspindle(tool.toolInSpindle);
-    status->set_toolfrompocket(tool.toolInSpindle);
+    status->set_pocket_prepared(tool.pocketPrepped);
+    status->set_tool_in_spindle(tool.toolInSpindle);
+    status->set_tool_from_pocket(tool.toolInSpindle);
     return status;
 }
 
@@ -197,13 +197,13 @@ IoStatus *getIoStatus(EMC_IO_STAT io)
 {
     IoStatus *status = new IoStatus();
 
-    status->set_cycletime(io.cycleTime);
+    status->set_cycle_time(io.cycleTime);
     status->set_reason(io.reason);
     status->set_fault(io.fault);
-    status->set_allocated_toolstatus(getToolStatus(io.tool));
-    status->set_allocated_coolantstatus(getCoolantStatus(io.coolant));
-    status->set_allocated_auxstatus(getAuxStatus(io.aux));
-    status->set_allocated_lubestatus(getLubeStatus(io.lube));
+    status->set_allocated_tool_status(getToolStatus(io.tool));
+    status->set_allocated_coolant_status(getCoolantStatus(io.coolant));
+    status->set_allocated_aux_status(getAuxStatus(io.aux));
+    status->set_allocated_lube_status(getLubeStatus(io.lube));
 
     return status;
 }
@@ -226,27 +226,27 @@ TrajectoryStatus *getTrajectoryStatus(EMC_TRAJ_STAT traj)
     status->set_mode(getTrajectoryMode(traj.mode));
     status->set_enabled(traj.enabled);
 
-    status->set_inposition(traj.inpos);
+    status->set_in_position(traj.inpos);
 
     status->set_queue(traj.queue);
 
-    status->set_activequeue(traj.activeQueue);
-    status->set_queuefull(traj.queueFull);
+    status->set_active_queue(traj.activeQueue);
+    status->set_queue_full(traj.queueFull);
     status->set_id(traj.id);
     status->set_paused(traj.paused);
     status->set_scale(traj.scale);
     status->set_rapid_scale(traj.rapid_scale);
 
     status->set_allocated_position(getPosition(traj.position));
-    status->set_allocated_actualposition(getPosition(traj.actualPosition));
+    status->set_allocated_actual_position(getPosition(traj.actualPosition));
 
     status->set_velocity(traj.velocity);
     status->set_acceleration(traj.acceleration);
 
-    status->set_maxvelocity(traj.maxVelocity);
-    status->set_maxacceleration(traj.maxAcceleration);
+    status->set_max_velocity(traj.maxVelocity);
+    status->set_max_acceleration(traj.maxAcceleration);
 
-    status->set_allocated_probedposition(getPosition(traj.probedPosition));
+    status->set_allocated_probed_position(getPosition(traj.probedPosition));
     status->set_probe_tripped(traj.probe_tripped);
     status->set_probing(traj.probing);
     status->set_probeval(traj.probeval);
@@ -338,8 +338,8 @@ MotionStatus *getMotionStatus(EMC_MOTION_STAT motion)
     for (EMC_AXIS_STAT axis : motion.axis)
     {
         AxisStatus *axisStatus = status->add_axis_status();
-        axisStatus->set_minpositionlimit(axis.minPositionLimit);
-        axisStatus->set_maxpositionlimit(axis.maxPositionLimit);
+        axisStatus->set_min_position_limit(axis.minPositionLimit);
+        axisStatus->set_max_position_limit(axis.maxPositionLimit);
         axisStatus->set_velocity(axis.velocity);
     }
 
@@ -386,7 +386,7 @@ MotionStatus *getMotionStatus(EMC_MOTION_STAT motion)
     status->set_on_soft_limit(motion.on_soft_limit);
     status->set_external_offsets_applied(motion.external_offsets_applied);
     status->set_allocated_eoffset_pose(getPosition(motion.eoffset_pose));
-    status->set_numextrajoints(motion.numExtraJoints);
+    status->set_num_extra_joints(motion.numExtraJoints);
     status->set_jogging_active(motion.jogging_active);
 
     return status;

@@ -39,6 +39,6 @@ message MotionStatus {
   int32 on_soft_limit = 11;
   int32 external_offsets_applied = 12;
   Position eoffset_pose = 13;
-  int32 numExtraJoints = 14;
+  int32 num_extra_joints = 14;
   bool jogging_active = 15;
 }

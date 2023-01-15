@@ -7,9 +7,9 @@ option java_multiple_files = true;
 
 message ToolStatus {
   /** idx ready for loading from */
-  int32 pocketPrepared = 1;
+  int32 pocket_prepared = 1;
   /** Tool loaded, 0 is no tool. */
-  int32 toolInSpindle = 2;
+  int32 tool_in_spindle = 2;
   /** Tool was loaded from this pocket. */
-  int32 toolFromPocket = 3;
+  int32 tool_from_pocket = 3;
 }

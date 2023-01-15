@@ -41,8 +41,8 @@ enum InterpreterState {
 }
 
 message ActiveCodes {
-  repeated float gCodes = 1;
-  repeated float mCodes = 2;
+  repeated float g_codes = 1;
+  repeated float m_codes = 2;
 }
 
 message TaskStatus {
