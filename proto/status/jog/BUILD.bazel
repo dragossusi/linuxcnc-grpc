@@ -4,14 +4,11 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 package(default_visibility = ["//visibility:public"])
 
 proto_library(
-    name = "spindle_proto",
-    srcs = ["spindle.proto"],
-    deps = [
-        "//proto/status/spindle/dir:dir_proto",
-    ],
+    name = "jog_proto",
+    srcs = ["jog.proto"],
 )
 
 cc_proto_library(
-    name = "spindle_cc_proto",
-    deps = [":spindle_proto"],
+    name = "jog_cc_proto",
+    deps = [":jog_proto"],
 )

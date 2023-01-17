@@ -20,6 +20,7 @@ using grpc::ServerContext;
 using grpc::ServerWriter;
 using grpc::Status;
 using grpc::StatusCode;
+using linuxcnc::CncStatus;
 using linuxcnc::CreateComponentRequest;
 using linuxcnc::CreatePinRequest;
 using linuxcnc::GetComponentsRequest;
@@ -31,7 +32,6 @@ using linuxcnc::HalPinDir;
 using linuxcnc::HalPinType;
 using linuxcnc::LinuxCnc;
 using linuxcnc::ReadStatusRequest;
-using linuxcnc::CncStatus;
 using std::any;
 using std::cout;
 using std::map;
@@ -99,9 +99,9 @@ public:
     cout << "Read status received" << std::endl;
 
     cout << "Refreshing status" << std::endl;
-    
+
     int result = statusReader.refreshStatus();
-    if (result != 0)
+    if (result < 0)
     {
       return Status(StatusCode::INTERNAL, "Failed to refresh status " + std::to_string(result));
     }

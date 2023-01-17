@@ -19,6 +19,7 @@ using linuxcnc::status::LengthUnit;
 using linuxcnc::status::LubeStatus;
 using linuxcnc::status::MotionStatus;
 using linuxcnc::status::Position;
+using linuxcnc::status::SpindleDirection;
 using linuxcnc::status::SpindleStatus;
 using linuxcnc::status::TaskExecState;
 using linuxcnc::status::TaskMode;
@@ -310,7 +311,8 @@ void fillSpindleStatus(SpindleStatus *status, EMC_SPINDLE_STAT spindle)
     status->set_css_factor(spindle.css_factor);
 
     status->set_state(spindle.state);
-    status->set_direction(spindle.direction);
+    SpindleDirection direction = SpindleDirection(spindle.direction);
+    status->set_direction(direction);
     status->set_brake(spindle.brake);
     status->set_increasing(spindle.increasing);
 
