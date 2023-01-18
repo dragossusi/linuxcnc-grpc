@@ -33,8 +33,10 @@ using linuxcnc::HalPinDir;
 using linuxcnc::HalPinType;
 using linuxcnc::LinuxCnc;
 using linuxcnc::ReadStatusRequest;
-using linuxcnc::SetTaskModeRequest;
 using linuxcnc::SendCommandResponse;
+using linuxcnc::SetTaskModeRequest;
+using linuxcnc::SetTaskStateRequest;
+using linuxcnc::TaskAbortRequest;
 using std::any;
 using std::cout;
 using std::map;
@@ -120,6 +122,26 @@ public:
   {
     // todo
     int result = commandWriter.setTaskMode(request->task_mode());
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetTaskState(ServerContext *context,
+                      const SetTaskStateRequest *request,
+                      SendCommandResponse *response) override
+  {
+    // todo
+    int result = commandWriter.setTaskState(request->task_state());
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status TaskAbort(ServerContext *context,
+                   const TaskAbortRequest *request,
+                   SendCommandResponse *response) override
+  {
+    // todo
+    int result = commandWriter.taskAbort();
     response->set_result(result);
     return Status::OK;
   }
