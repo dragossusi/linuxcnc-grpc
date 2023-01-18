@@ -16,6 +16,24 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "command_writer",
+    srcs = ["command_writer.cc"],
+    hdrs = ["command_writer.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    defines = ["BAZEL_BUILD"],
+    deps = [
+        "//proto:linuxcnc_cc_proto",
+        "//proto/status:length_unit_cc_proto",
+        "//proto/status:position_cc_proto",
+        "//proto/status/task:task_cc_proto",
+        "@linuxcnc",
+    ],
+)
+
 cc_binary(
     name = "server",
     srcs = [
@@ -27,6 +45,7 @@ cc_binary(
     ],
     defines = ["BAZEL_BUILD"],
     deps = [
+        ":command_writer",
         ":status_reader",
         "//proto:linuxcnc_grpc",
         "@com_github_grpc_grpc//:grpc++",

@@ -2,6 +2,7 @@ package ro.dragossusi.grpc.linuxcnc.main
 
 import io.grpc.ManagedChannelBuilder
 import ro.dragossusi.proto.linuxcnc.*
+import ro.dragossusi.proto.linuxcnc.status.TaskMode
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 
@@ -16,6 +17,7 @@ fun main() {
             addComp()
             getComp()
             readStatus()
+            setTaskMode(TaskMode.TaskModeAuto)
         }
     } finally {
         channel.shutdownNow()
@@ -46,4 +48,12 @@ private fun LinuxCncGrpc.LinuxCncBlockingStub.getComp() {
     }
     val components = getComponents(request).componentsList
     logger.info("Received ${components.size} components: \n$components")
+}
+
+private fun LinuxCncGrpc.LinuxCncBlockingStub.setTaskMode(mode: TaskMode) {
+    val request = setTaskModeRequest {
+        taskMode = mode
+    }
+    val response = setTaskMode(request)
+    logger.info("Received ${response.result} setting task mode $mode")
 }

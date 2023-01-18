@@ -7,6 +7,7 @@
 #include <grpcpp/grpcpp.h>
 
 #include "status_reader.hh"
+#include "command_writer.hh"
 
 #ifdef BAZEL_BUILD
 #include "proto/linuxcnc.grpc.pb.h"
@@ -32,6 +33,8 @@ using linuxcnc::HalPinDir;
 using linuxcnc::HalPinType;
 using linuxcnc::LinuxCnc;
 using linuxcnc::ReadStatusRequest;
+using linuxcnc::SetTaskModeRequest;
+using linuxcnc::SendCommandResponse;
 using std::any;
 using std::cout;
 using std::map;
@@ -44,6 +47,7 @@ class LinuxCncServiceImpl final : public LinuxCnc::Service
 
 private:
   StatusReader statusReader;
+  CommandWriter commandWriter;
   map<string, HalComponent> componentsMap;
 
 public:
@@ -107,6 +111,16 @@ public:
     }
 
     statusReader.setStatus(response);
+    return Status::OK;
+  }
+
+  Status SetTaskMode(ServerContext *context,
+                     const SetTaskModeRequest *request,
+                     SendCommandResponse *response) override
+  {
+    // todo
+    int result = commandWriter.setTaskMode(request->task_mode());
+    response->set_result(result);
     return Status::OK;
   }
 };

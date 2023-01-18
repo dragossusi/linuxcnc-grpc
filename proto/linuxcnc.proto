@@ -21,6 +21,15 @@ service LinuxCnc {
   rpc GetPins(HalComponent) returns (GetPinsResponse);
 
   rpc CreatePin(CreatePinRequest) returns (HalPin);
+
+  // commands
+  rpc SetTaskMode(SetTaskModeRequest) returns (SendCommandResponse);
+}
+
+message SetTaskModeRequest { status.TaskMode task_mode = 1; }
+
+message SendCommandResponse {
+  int32 result = 1;
 }
 
 message ReadStatusRequest {}
