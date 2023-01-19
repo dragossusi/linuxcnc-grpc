@@ -155,7 +155,7 @@ public:
                   const HomeAxisRequest *request,
                   SendCommandResponse *response) override
   {
-    int result = commandWriter.homeAxis(request->jointnumber());
+    int result = commandWriter.homeAxis(request->joint_number());
     response->set_result(result);
     return Status::OK;
   }
@@ -164,7 +164,7 @@ public:
                     const UnhomeAxisRequest *request,
                     SendCommandResponse *response) override
   {
-    int result = commandWriter.unhomeAxis(request->jointnumber());
+    int result = commandWriter.unhomeAxis(request->joint_number());
     response->set_result(result);
     return Status::OK;
   }
@@ -173,7 +173,7 @@ public:
                         const OverrideLimitsRequest *request,
                         SendCommandResponse *response) override
   {
-    int result = commandWriter.overrideLimits(request->jointnumber());
+    int result = commandWriter.overrideLimits(request->joint_number());
     response->set_result(result);
     return Status::OK;
   }

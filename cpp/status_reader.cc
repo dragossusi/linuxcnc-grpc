@@ -427,8 +427,8 @@ bool StatusReader::setStatus(CncStatus *cncStatus)
     TaskStatus *taskStatus = getTaskStatus(status->task);
     IoStatus *ioStatus = getIoStatus(status->io);
     MotionStatus *motionStatus = getMotionStatus(status->motion);
-    cncStatus->set_allocated_taskstatus(taskStatus);
-    cncStatus->set_allocated_iostatus(ioStatus);
-    cncStatus->set_allocated_motionstatus(motionStatus);
+    cncStatus->set_allocated_task_status(taskStatus);
+    cncStatus->set_allocated_io_status(ioStatus);
+    cncStatus->set_allocated_motion_status(motionStatus);
     return true;
 }

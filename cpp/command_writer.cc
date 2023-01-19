@@ -68,7 +68,7 @@ int CommandWriter::setTaskMode(TaskMode taskMode)
 {
     EMC_TASK_SET_MODE command;
 
-    command.mode = (EMC_TASK_MODE_ENUM)taskMode;
+    command.mode = (EMC_TASK_MODE_ENUM)(taskMode + 1);
 
     return sendCommand(command);
 }
@@ -120,8 +120,8 @@ int CommandWriter::jogContinuos(const JogContinuousRequest *request)
 {
     EMC_JOG_CONT command;
 
-    command.jjogmode = request->jogmode();
-    command.joint_or_axis = request->jointoraxis();
+    command.jjogmode = request->jog_mode();
+    command.joint_or_axis = request->joint_or_axis();
     command.vel = request->velocity();
 
     return sendCommand(command);
@@ -131,8 +131,8 @@ int CommandWriter::jogIncremental(const JogIncrementalRequest *request)
 {
     EMC_JOG_INCR command;
 
-    command.jjogmode = request->jogmode();
-    command.joint_or_axis = request->jointoraxis();
+    command.jjogmode = request->jog_mode();
+    command.joint_or_axis = request->joint_or_axis();
     command.vel = request->velocity();
     command.incr = request->stepsize();
 
@@ -143,8 +143,8 @@ int CommandWriter::jogAbsolute(const JogAbsoluteRequest *request)
 {
     EMC_JOG_ABS command;
 
-    command.jjogmode = request->jogmode();
-    command.joint_or_axis = request->jointoraxis();
+    command.jjogmode = request->jog_mode();
+    command.joint_or_axis = request->joint_or_axis();
     command.vel = request->velocity();
     command.pos = request->position();
 
@@ -155,8 +155,8 @@ int CommandWriter::jogStop(const JogStopRequest *request)
 {
     EMC_JOG_ABS command;
 
-    command.jjogmode = request->jogmode();
-    command.joint_or_axis = request->jointoraxis();
+    command.jjogmode = request->jog_mode();
+    command.joint_or_axis = request->joint_or_axis();
 
     return sendCommand(command);
 }
