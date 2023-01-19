@@ -116,7 +116,7 @@ int CommandWriter::overrideLimits(int jointNumber)
     return sendCommand(command);
 }
 
-int CommandWriter::jogContinuos(JogContinuousRequest *request)
+int CommandWriter::jogContinuos(const JogContinuousRequest *request)
 {
     EMC_JOG_CONT command;
 
@@ -127,7 +127,7 @@ int CommandWriter::jogContinuos(JogContinuousRequest *request)
     return sendCommand(command);
 }
 
-int CommandWriter::jogIncremental(JogIncrementalRequest *request)
+int CommandWriter::jogIncremental(const JogIncrementalRequest *request)
 {
     EMC_JOG_INCR command;
 
@@ -139,7 +139,7 @@ int CommandWriter::jogIncremental(JogIncrementalRequest *request)
     return sendCommand(command);
 }
 
-int CommandWriter::jogAbsolute(JogAbsoluteRequest *request)
+int CommandWriter::jogAbsolute(const JogAbsoluteRequest *request)
 {
     EMC_JOG_ABS command;
 
@@ -151,7 +151,7 @@ int CommandWriter::jogAbsolute(JogAbsoluteRequest *request)
     return sendCommand(command);
 }
 
-int CommandWriter::jogStop(JogStopRequest *request)
+int CommandWriter::jogStop(const JogStopRequest *request)
 {
     EMC_JOG_ABS command;
 

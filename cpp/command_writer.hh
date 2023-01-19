@@ -32,8 +32,8 @@ public:
 
     int overrideLimits(int jointNumber);
 
-    int jogContinuos(JogContinuousRequest *request);
-    int jogIncremental(JogIncrementalRequest *request);
-    int jogAbsolute(JogAbsoluteRequest *request);
-    int jogStop(JogStopRequest *request);
+    int jogContinuos(const JogContinuousRequest *request);
+    int jogIncremental(const JogIncrementalRequest *request);
+    int jogAbsolute(const JogAbsoluteRequest *request);
+    int jogStop(const JogStopRequest *request);
 };

@@ -31,12 +31,19 @@ using linuxcnc::HalComponent;
 using linuxcnc::HalPin;
 using linuxcnc::HalPinDir;
 using linuxcnc::HalPinType;
+using linuxcnc::HomeAxisRequest;
+using linuxcnc::JogAbsoluteRequest;
+using linuxcnc::JogContinuousRequest;
+using linuxcnc::JogIncrementalRequest;
+using linuxcnc::JogStopRequest;
 using linuxcnc::LinuxCnc;
+using linuxcnc::OverrideLimitsRequest;
 using linuxcnc::ReadStatusRequest;
 using linuxcnc::SendCommandResponse;
 using linuxcnc::SetTaskModeRequest;
 using linuxcnc::SetTaskStateRequest;
 using linuxcnc::TaskAbortRequest;
+using linuxcnc::UnhomeAxisRequest;
 using std::any;
 using std::cout;
 using std::map;
@@ -120,7 +127,6 @@ public:
                      const SetTaskModeRequest *request,
                      SendCommandResponse *response) override
   {
-    // todo
     int result = commandWriter.setTaskMode(request->task_mode());
     response->set_result(result);
     return Status::OK;
@@ -130,7 +136,6 @@ public:
                       const SetTaskStateRequest *request,
                       SendCommandResponse *response) override
   {
-    // todo
     int result = commandWriter.setTaskState(request->task_state());
     response->set_result(result);
     return Status::OK;
@@ -140,8 +145,72 @@ public:
                    const TaskAbortRequest *request,
                    SendCommandResponse *response) override
   {
-    // todo
     int result = commandWriter.taskAbort();
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  // home/unhome
+  Status HomeAxis(ServerContext *context,
+                  const HomeAxisRequest *request,
+                  SendCommandResponse *response) override
+  {
+    int result = commandWriter.homeAxis(request->jointnumber());
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status UnhomeAxis(ServerContext *context,
+                    const UnhomeAxisRequest *request,
+                    SendCommandResponse *response) override
+  {
+    int result = commandWriter.unhomeAxis(request->jointnumber());
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status OverrideLimits(ServerContext *context,
+                        const OverrideLimitsRequest *request,
+                        SendCommandResponse *response) override
+  {
+    int result = commandWriter.overrideLimits(request->jointnumber());
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  // jog
+  Status JogContinuous(ServerContext *context,
+                       const JogContinuousRequest *request,
+                       SendCommandResponse *response) override
+  {
+    int result = commandWriter.jogContinuos(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status JogIncremental(ServerContext *context,
+                        const JogIncrementalRequest *request,
+                        SendCommandResponse *response) override
+  {
+    int result = commandWriter.jogIncremental(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status JogAbsolute(ServerContext *context,
+                     const JogAbsoluteRequest *request,
+                     SendCommandResponse *response) override
+  {
+    int result = commandWriter.jogAbsolute(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status JogStop(ServerContext *context,
+                 const JogStopRequest *request,
+                 SendCommandResponse *response) override
+  {
+    int result = commandWriter.jogStop(request);
     response->set_result(result);
     return Status::OK;
   }
