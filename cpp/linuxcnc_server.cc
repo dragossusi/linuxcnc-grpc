@@ -7,6 +7,7 @@
 #include <grpcpp/grpcpp.h>
 
 #include "status_reader.hh"
+#include "error_reader.hh"
 #include "command_writer.hh"
 
 #ifdef BAZEL_BUILD
@@ -38,12 +39,14 @@ using linuxcnc::JogIncrementalRequest;
 using linuxcnc::JogStopRequest;
 using linuxcnc::LinuxCnc;
 using linuxcnc::OverrideLimitsRequest;
+using linuxcnc::ReadErrorRequest;
 using linuxcnc::ReadStatusRequest;
 using linuxcnc::SendCommandResponse;
 using linuxcnc::SetTaskModeRequest;
 using linuxcnc::SetTaskStateRequest;
 using linuxcnc::TaskAbortRequest;
 using linuxcnc::UnhomeAxisRequest;
+using linuxcnc::status::SystemMessage;
 using std::any;
 using std::cout;
 using std::map;
@@ -55,6 +58,7 @@ class LinuxCncServiceImpl final : public LinuxCnc::Service
 {
 
 private:
+  ErrorReader errorReader;
   StatusReader statusReader;
   CommandWriter commandWriter;
   map<string, HalComponent> componentsMap;
@@ -120,6 +124,21 @@ public:
     }
 
     statusReader.setStatus(response);
+    return Status::OK;
+  }
+
+  Status ReadError(ServerContext *context, const ReadErrorRequest *request,
+                   SystemMessage *response) override
+  {
+    cout << "Reading error" << std::endl;
+
+    bool result = errorReader.readError(response);
+
+    if (!result)
+    {
+      return Status(StatusCode::INTERNAL, "Failed to read error");
+    }
+
     return Status::OK;
   }
 

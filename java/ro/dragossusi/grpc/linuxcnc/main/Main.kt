@@ -18,6 +18,7 @@ fun main() {
             getComp()
             readStatus()
             setTaskMode(TaskMode.TaskModeAuto)
+            readError()
         }
     } finally {
         channel.shutdownNow()
@@ -32,6 +33,15 @@ private fun LinuxCncGrpc.LinuxCncBlockingStub.readStatus() {
     val status = readStatus(request)
 
     logger.info("Status: \n$status")
+}
+
+private fun LinuxCncGrpc.LinuxCncBlockingStub.readError() {
+    val request = readErrorRequest {
+        // no-op
+    }
+    val message = readError(request)
+
+    logger.info("Error message: \n$message")
 }
 
 private fun LinuxCncGrpc.LinuxCncBlockingStub.addComp() {
