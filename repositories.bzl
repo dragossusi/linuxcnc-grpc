@@ -118,3 +118,10 @@ def linuxcnc_local():
         path = "/home/dragos/Apps/linuxcnc",
         build_file = "third_party/linuxcnc/BUILD",
     )
+
+def linuxcnc_proto():
+    http_archive(
+        name = "linuxcnc_proto",
+        strip_prefix = "linuxcnc-proto-main",
+        url = "https://github.com/dragossusi/linuxcnc-proto/archive/refs/heads/main.zip",
+    )

@@ -24,12 +24,13 @@ load(
     "IO_GRPC_GRPC_KOTLIN_ARTIFACTS",
     "IO_GRPC_GRPC_KOTLIN_OVERRIDE_TARGETS",
     "com_github_grpc_grpc",
+    "com_github_grpc_grpc_kotlin",
     "grpc_kt_repositories",
     "io_bazel_rules_kotlin",
     "io_grpc_grpc_java",
     "linuxcnc_local",
+    "linuxcnc_proto",
     "rules_jvm_external",
-    "com_github_grpc_grpc_kotlin"
 )
 
 rules_jvm_external()
@@ -41,6 +42,8 @@ io_grpc_grpc_java()
 com_github_grpc_grpc()
 
 linuxcnc_local()
+
+linuxcnc_proto()
 
 com_github_grpc_grpc_kotlin()
 

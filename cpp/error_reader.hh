@@ -1,4 +1,4 @@
-#include "proto/linuxcnc.pb.h"
+#include "linuxcnc.pb.h"
 
 using linuxcnc::status::SystemMessage;
 

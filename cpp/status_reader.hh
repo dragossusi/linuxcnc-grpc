@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "proto/linuxcnc.pb.h"
+#include "linuxcnc.pb.h"
 
 using linuxcnc::CncStatus;
 

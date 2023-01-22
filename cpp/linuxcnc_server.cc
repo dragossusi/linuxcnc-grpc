@@ -1,4 +1,3 @@
-#include <any>
 #include <iostream>
 #include <string>
 #include <map>
@@ -11,9 +10,9 @@
 #include "command_writer.hh"
 
 #ifdef BAZEL_BUILD
-#include "proto/linuxcnc.grpc.pb.h"
+#include "linuxcnc.grpc.pb.h"
 #else
-#include "proto/linuxcnc.grpc.pb.h"
+#include "linuxcnc.grpc.pb.h"
 #endif
 
 using grpc::Server;
@@ -47,7 +46,6 @@ using linuxcnc::SetTaskStateRequest;
 using linuxcnc::TaskAbortRequest;
 using linuxcnc::UnhomeAxisRequest;
 using linuxcnc::status::SystemMessage;
-using std::any;
 using std::cout;
 using std::map;
 using std::string;
@@ -230,6 +228,24 @@ public:
                  SendCommandResponse *response) override
   {
     int result = commandWriter.jogStop(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetMinPositionLimit(ServerContext *context,
+                             const SetMinPositionPositionLimitRequest *request,
+                             SendCommandResponse *response) override
+  {
+    int result = commandWriter.setMinPositionLimit(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetMaxPositionLimit(ServerContext *context,
+                             const SetMaxPositionPositionLimitRequest *request,
+                             SendCommandResponse *response) override
+  {
+    int result = commandWriter.setMaxPositionLimit(request);
     response->set_result(result);
     return Status::OK;
   }

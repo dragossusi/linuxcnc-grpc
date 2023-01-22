@@ -10,6 +10,10 @@
 #define EMC_COMMAND_TIMEOUT 5.0 // how long to wait until timeout
 #define EMC_COMMAND_DELAY 0.01  // seconds to sleep between checks
 
+using linuxcnc::SetBacklashRequest;
+using linuxcnc::SetMaxPositionPositionLimitRequest;
+using linuxcnc::SetMinPositionPositionLimitRequest;
+
 static RCS_CMD_CHANNEL *cCmd;
 static RCS_STAT_CHANNEL *cStat;
 static EMC_STAT *status;
@@ -159,4 +163,22 @@ int CommandWriter::jogStop(const JogStopRequest *request)
     command.joint_or_axis = request->joint_or_axis();
 
     return sendCommand(command);
+}
+
+int CommandWriter::setMinPositionLimit(const SetMinPositionPositionLimitRequest *request)
+{
+    // todo
+    return 0;
+}
+
+int CommandWriter::setMaxPositionLimit(const SetMaxPositionPositionLimitRequest *request)
+{
+    // todo
+    return 0;
+}
+
+int CommandWriter::setBacklash(const SetBacklashRequest *request)
+{
+    // todo
+    return 0;
 }

@@ -5,8 +5,8 @@ kt_jvm_library(
     srcs = ["Main.kt"],
     visibility = ["//java:visibility"],
     deps = [
-        "//proto:linuxcnc_kt_grpc",
-        "//proto:linuxcnc_kt_proto",
+        "@linuxcnc_proto//:linuxcnc_kt_grpc",
+        "@linuxcnc_proto//:linuxcnc_kt_proto",
         "@com_google_protobuf//:protobuf_java",
         "@com_google_protobuf//:protobuf_java_util",
         "@io_grpc_grpc_java//api",

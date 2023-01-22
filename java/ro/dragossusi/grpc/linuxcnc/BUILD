@@ -5,8 +5,8 @@ kt_jvm_library(
     srcs = glob(["*.kt"]),
     visibility = ["//java:visibility"],
     deps = [
-        "//proto:linuxcnc_java_grpc",
-        "//proto:linuxcnc_java_proto",
+        "@linuxcnc_proto//:linuxcnc_java_grpc",
+        "@linuxcnc_proto//:linuxcnc_java_proto",
         "@com_google_protobuf//:protobuf_java",
         "@com_google_protobuf//:protobuf_java_util",
         "@io_grpc_grpc_java//api",
