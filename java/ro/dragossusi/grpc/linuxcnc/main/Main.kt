@@ -15,7 +15,7 @@ fun main() {
     try {
         LinuxCncGrpc.newBlockingStub(channel).apply {
             addComp()
-            getComp()
+            getComps()
             readStatus()
             setTaskMode(TaskMode.TaskModeAuto)
             readError()
@@ -52,7 +52,7 @@ private fun LinuxCncGrpc.LinuxCncBlockingStub.addComp() {
     logger.info("Created component: \n$component")
 }
 
-private fun LinuxCncGrpc.LinuxCncBlockingStub.getComp() {
+private fun LinuxCncGrpc.LinuxCncBlockingStub.getComps() {
     val request = getComponentsRequest {
         // no-op
     }

@@ -8,6 +8,7 @@
 #include "status_reader.hh"
 #include "error_reader.hh"
 #include "command_writer.hh"
+#include "hal_handler.hh"
 
 #ifdef BAZEL_BUILD
 #include "linuxcnc.grpc.pb.h"
@@ -47,7 +48,6 @@ using linuxcnc::TaskAbortRequest;
 using linuxcnc::UnhomeAxisRequest;
 using linuxcnc::status::SystemMessage;
 using std::cout;
-using std::map;
 using std::string;
 using std::unique_ptr;
 
@@ -59,18 +59,19 @@ private:
   ErrorReader errorReader;
   StatusReader statusReader;
   CommandWriter commandWriter;
-  map<string, HalComponent> componentsMap;
+  HalHandler halHandler;
 
 public:
   Status GetComponents(ServerContext *context, const GetComponentsRequest *request,
                        GetComponentsResponse *response) override
   {
-    cout << "Get Components received" << std::endl;
+    std::cout << "Get Components received" << std::endl;
+    auto components = halHandler.getHalComponents();
     // todo
-    for (const auto &[key, value] : componentsMap)
+    for (auto const &item : components)
     {
       const auto component = response->add_components();
-      component->CopyFrom(value);
+      component->CopyFrom(item);
     }
     return Status::OK;
   }
@@ -79,11 +80,15 @@ public:
                          HalComponent *response) override
   {
     cout << "Create Component received" << std::endl;
-    // todo
-    string compName = request->name();
-    response->set_name(request->name());
-    response->set_component_id(1);
-    componentsMap[compName] = *response;
+    auto result = halHandler.createHalComponent(request, response);
+    if (result == 0)
+    {
+      return Status(StatusCode::ALREADY_EXISTS, "Component already exists.");
+    }
+    if (result == -1)
+    {
+      return Status(StatusCode::INTERNAL, "Error creating component");
+    }
     return Status::OK;
   }
 

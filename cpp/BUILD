@@ -50,6 +50,22 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "hal_handler",
+    srcs = ["hal_handler.cc"],
+    hdrs = ["hal_handler.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+        "-DULAPI",
+    ],
+    defines = ["BAZEL_BUILD"],
+    deps = [
+        "@linuxcnc",
+        "@linuxcnc_proto//:linuxcnc_cc_proto",
+    ],
+)
+
 cc_binary(
     name = "server",
     srcs = [
@@ -63,6 +79,7 @@ cc_binary(
     deps = [
         ":command_writer",
         ":error_reader",
+        ":hal_handler",
         ":status_reader",
         "@com_github_grpc_grpc//:grpc++",
         "@linuxcnc_proto//:linuxcnc_grpc",
