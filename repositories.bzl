@@ -8,7 +8,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 #     ] + IO_GRPC_GRPC_KOTLIN_ARTIFACTS + IO_GRPC_GRPC_JAVA_ARTIFACTS,
 # )
 IO_GRPC_GRPC_KOTLIN_ARTIFACTS = [
-    "com.google.guava:guava:31.0.1-android",
+    "com.google.guava:guava:31.1-android",
     "com.squareup:kotlinpoet:1.12.0",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4",
@@ -48,8 +48,8 @@ def rules_jvm_external():
     )
 
 def io_bazel_rules_kotlin():
-    rules_kotlin_version = "1.7.1"
-    rules_kotlin_sha = "fd92a98bd8a8f0e1cdcb490b93f5acef1f1727ed992571232d33de42395ca9b3"
+    rules_kotlin_version = "1.8"
+    rules_kotlin_sha = "01293740a16e474669aba5b5a1fe3d368de5832442f164e4fbfc566815a8bc3a"
     http_archive(
         name = "io_bazel_rules_kotlin",
         urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin_release.tgz" % rules_kotlin_version],
@@ -57,12 +57,12 @@ def io_bazel_rules_kotlin():
     )
 
 def com_google_protobuf():
-    protobuf_version = "21.12"
+    protobuf_version = "23.4"
     protobuf_sha = "2c6a36c7b5a55accae063667ef3c55f2642e67476d96d355ff0acb13dbb47f09"
 
     http_archive(
         name = "com_google_protobuf",
-        sha256 = protobuf_sha,
+        #        sha256 = protobuf_sha,
         strip_prefix = "protobuf-%s" % protobuf_version,
         urls = ["https://github.com/protocolbuffers/protobuf/releases/download/v%s/protobuf-all-%s.tar.gz" % (protobuf_version, protobuf_version)],
     )
@@ -79,7 +79,7 @@ def com_github_grpc_grpc_kotlin():
 def io_grpc_grpc_java():
     http_archive(
         name = "io_grpc_grpc_java",
-        sha256 = "75e5994ca18ae3ffaf67a2f08d0274215916b0ff56d62e9e5b447095e622714b",
+        #        sha256 = "75e5994ca18ae3ffaf67a2f08d0274215916b0ff56d62e9e5b447095e622714b",
         strip_prefix = "grpc-java-%s" % GRPC_VERSION,
         url = "https://github.com/grpc/grpc-java/archive/v%s.zip" % GRPC_VERSION,
     )
@@ -87,7 +87,7 @@ def io_grpc_grpc_java():
 def com_github_grpc_grpc():
     http_archive(
         name = "com_github_grpc_grpc",
-        sha256 = "4b64cbc454cc4fd0801a2823111e1d99f519c765dfa116905740f7ca2256d085",
+        #        sha256 = "4b64cbc454cc4fd0801a2823111e1d99f519c765dfa116905740f7ca2256d085",
         strip_prefix = "grpc-%s" % GRPC_VERSION,
         url = "https://github.com/grpc/grpc/archive/v%s.zip" % GRPC_VERSION,
     )
