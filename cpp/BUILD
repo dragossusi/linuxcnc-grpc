@@ -33,6 +33,22 @@ cc_library(
 )
 
 cc_library(
+    name = "component",
+    srcs = ["component.cc"],
+    hdrs = ["component.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    defines = ["BAZEL_BUILD"],
+    deps = [
+        "@linuxcnc",
+        "@linuxcnc_proto//:linuxcnc_cc_proto",
+        "@linuxcnc_proto//status/message:message_cc_proto",
+    ],
+)
+
+cc_library(
     name = "command_writer",
     srcs = ["command_writer.cc"],
     hdrs = ["command_writer.hh"],
@@ -61,6 +77,7 @@ cc_library(
     ],
     defines = ["BAZEL_BUILD"],
     deps = [
+        ":component",
         "@linuxcnc",
         "@linuxcnc_proto//:linuxcnc_cc_proto",
     ],

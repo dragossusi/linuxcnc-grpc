@@ -167,18 +167,174 @@ int CommandWriter::jogStop(const JogStopRequest *request)
 
 int CommandWriter::setMinPositionLimit(const SetMinPositionPositionLimitRequest *request)
 {
-    // todo
-    return 0;
+
+    EMC_JOINT_SET_MIN_POSITION_LIMIT command;
+
+    command.joint = request->joint_num();
+    command.limit = request->limit();
+
+    return sendCommand(command);
 }
 
 int CommandWriter::setMaxPositionLimit(const SetMaxPositionPositionLimitRequest *request)
 {
-    // todo
-    return 0;
+    EMC_JOINT_SET_MAX_POSITION_LIMIT command;
+
+    command.joint = request->joint_num();
+    command.limit = request->limit();
+
+    return sendCommand(command);
 }
 
 int CommandWriter::setBacklash(const SetBacklashRequest *request)
 {
+    EMC_JOINT_SET_BACKLASH command;
+
+    command.joint = request->joint_num();
+    command.backlash = request->backlash();
+
+    return sendCommand(command);
+}
+
+int CommandWriter::setFeedHold(const SetFeedHoldRequest *request)
+{
+    EMC_TRAJ_SET_FH_ENABLE command;
+
+    command.mode = request->mode();
+
+    return sendCommand(command);
+}
+
+int CommandWriter::loadTaskPlan(const LoadTaskPlanRequest *request)
+{
+    EMC_TASK_PLAN_CLOSE closeCommand;
+    EMC_TASK_PLAN_OPEN openCommand;
+
+    sendCommand(closeCommand);
+    strcpy(openCommand.file, request->file_name().c_str());
+
+    return sendCommand(openCommand);
+}
+
+int CommandWriter::loadToolTable(const LoadToolTableRequest *request)
+{
     // todo
     return 0;
+}
+
+int CommandWriter::sendMdiCommand(const SendMdiCommandRequest *request)
+{
+    EMC_TASK_PLAN_EXECUTE command;
+
+    strcpy(command.command, request->command().c_str());
+
+    return sendCommand(command);
+}
+
+int CommandWriter::setAuto(const SetAutoRequest *request)
+{
+    // todo
+    return 0;
+}
+
+int CommandWriter::setBlockDelete(const SetBlockDeleteRequest *request)
+{
+    EMC_TASK_PLAN_SET_BLOCK_DELETE command;
+
+    if (request->enabled())
+        command.state = 1;
+    else
+        command.state = 0;
+
+    return sendCommand(command);
+}
+
+int CommandWriter::setFeedOverride(const SetFeedOverrideRequest *request)
+{
+    EMC_TRAJ_SET_SCALE command;
+
+    command.scale = request->rate();
+
+    return sendCommand(command);
+}
+
+int CommandWriter::setFlood(const SetFloodRequest *request)
+{
+    if (request->enabled())
+    {
+        EMC_COOLANT_FLOOD_ON command;
+
+        return sendCommand(command);
+    }
+    else
+    {
+        EMC_COOLANT_FLOOD_OFF command;
+
+        return sendCommand(command);
+    }
+}
+
+int CommandWriter::setMist(const SetMistRequest *request)
+{
+    if (request->enabled())
+    {
+        EMC_COOLANT_MIST_ON command;
+
+        return sendCommand(command);
+    }
+    else
+    {
+        EMC_COOLANT_MIST_OFF command;
+
+        return sendCommand(command);
+    }
+}
+
+int CommandWriter::setOptionalStop(const SetOptionalStopRequest *request)
+{
+    EMC_TASK_PLAN_SET_OPTIONAL_STOP command;
+
+    command.state = request->stop();
+
+    return sendCommand(command);
+}
+
+int CommandWriter::setRapidOverride(const SetRapidOverrideRequest *request)
+{
+    EMC_TRAJ_SET_RAPID_SCALE command;
+
+    command.scale = request->rate();
+
+    return sendCommand(command);
+}
+
+int CommandWriter::setSpindle(const SetSpindleRequest *request)
+{
+    if (request->enabled())
+    {
+        EMC_SPINDLE_ON command;
+
+        command.speed = request->direction() * request->speed();
+        command.spindle = 0;
+
+        return sendCommand(command);
+    }
+    else
+    {
+        EMC_SPINDLE_OFF command;
+
+        command.spindle = 0;
+
+        return sendCommand(command);
+    }
+}
+
+int CommandWriter::setSpindleOverride(const SetSpindleOverrideRequest *request)
+{
+    EMC_TRAJ_SET_SPINDLE_SCALE command;
+
+    command.spindle = 0;
+    command.scale = request->rate();
+
+    return sendCommand(command);
 }

@@ -13,9 +13,10 @@ HalHandler::HalHandler()
 std::vector<HalComponent> HalHandler::getHalComponents()
 {
     std::vector<HalComponent> components;
-    for (auto const &item : componentsMap)
+    for (auto const &iterator : componentsMap)
     {
-        components.push_back(item.second);
+        auto component = iterator.second.component;
+        components.push_back(component);
     }
     return components;
 }
@@ -42,7 +43,8 @@ int HalHandler::createHalComponent(const CreateComponentRequest *request, HalCom
     component->set_name(name);
     component->set_component_id(result);
 
-    componentsMap[name] = *component;
+    auto pair = std::pair(name, *component);
+    componentsMap.insert(pair);
 
     response->CopyFrom(*component);
 

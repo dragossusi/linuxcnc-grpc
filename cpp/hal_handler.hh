@@ -1,6 +1,8 @@
 #include <map>
 #include <vector>
+
 #include "linuxcnc.pb.h"
+#include "component.hh"
 
 using linuxcnc::CreateComponentRequest;
 using linuxcnc::HalComponent;
@@ -8,7 +10,7 @@ using linuxcnc::HalComponent;
 class HalHandler
 {
 private:
-    std::map<std::string, HalComponent> componentsMap;
+    std::map<std::string, ComponentWithPins> componentsMap;
 
 public:
     HalHandler();

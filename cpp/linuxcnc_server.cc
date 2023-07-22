@@ -254,6 +254,132 @@ public:
     response->set_result(result);
     return Status::OK;
   }
+
+  Status SetBacklash(ServerContext *context,
+                     const SetBacklashRequest *request,
+                     SendCommandResponse *response) override
+  {
+    int result = commandWriter.setBacklash(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetFeedHold(ServerContext *context,
+                     const SetFeedHoldRequest *request,
+                     SendCommandResponse *response) override
+  {
+    int result = commandWriter.setFeedHold(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status LoadTaskPlan(ServerContext *context,
+                      const LoadTaskPlanRequest *request,
+                      SendCommandResponse *response) override
+  {
+    int result = commandWriter.loadTaskPlan(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status LoadToolTable(ServerContext *context,
+                       const LoadToolTableRequest *request,
+                       SendCommandResponse *response) override
+  {
+    int result = commandWriter.loadToolTable(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SendMdiCommand(ServerContext *context,
+                        const SendMdiCommandRequest *request,
+                        SendCommandResponse *response) override
+  {
+    int result = commandWriter.sendMdiCommand(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetAuto(ServerContext *context,
+                 const SetAutoRequest *request,
+                 SendCommandResponse *response) override
+  {
+    int result = commandWriter.setAuto(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetBlockDelete(ServerContext *context,
+                        const SetBlockDeleteRequest *request,
+                        SendCommandResponse *response) override
+  {
+    int result = commandWriter.setBlockDelete(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetFeedOverride(ServerContext *context,
+                         const SetFeedOverrideRequest *request,
+                         SendCommandResponse *response) override
+  {
+    int result = commandWriter.setFeedOverride(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetFlood(ServerContext *context,
+                  const SetFloodRequest *request,
+                  SendCommandResponse *response) override
+  {
+    int result = commandWriter.setFlood(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetMist(ServerContext *context,
+                 const SetMistRequest *request,
+                 SendCommandResponse *response) override
+  {
+    int result = commandWriter.setMist(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetOptionalStop(ServerContext *context,
+                         const SetOptionalStopRequest *request,
+                         SendCommandResponse *response) override
+  {
+    int result = commandWriter.setOptionalStop(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetRapidOverride(ServerContext *context,
+                          const SetRapidOverrideRequest *request,
+                          SendCommandResponse *response) override
+  {
+    int result = commandWriter.setRapidOverride(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetSpindle(ServerContext *context,
+                    const SetSpindleRequest *request,
+                    SendCommandResponse *response) override
+  {
+    int result = commandWriter.setSpindle(request);
+    response->set_result(result);
+    return Status::OK;
+  }
+
+  Status SetSpindleOverride(ServerContext *context,
+                            const SetSpindleOverrideRequest *request,
+                            SendCommandResponse *response) override
+  {
+    int result = commandWriter.setSpindleOverride(request);
+    response->set_result(result);
+    return Status::OK;
+  }
 };
 
 int main(int argc, char **argv)
