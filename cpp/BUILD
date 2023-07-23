@@ -9,10 +9,10 @@ cc_library(
     defines = ["BAZEL_BUILD"],
     deps = [
         "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
-        "@linuxcnc_proto//status:length_unit_cc_proto",
-        "@linuxcnc_proto//status:position_cc_proto",
-        "@linuxcnc_proto//status/task:task_cc_proto",
+        "//third_party/linuxcnc_proto:linuxcnc_cc_proto",
+        #        "@linuxcnc_proto//status:length_unit_cc_proto",
+        #        "@linuxcnc_proto//status:position_cc_proto",
+        #        "@linuxcnc_proto//status/task:task_cc_proto",
     ],
 )
 
@@ -26,8 +26,8 @@ cc_library(
     ],
     defines = ["BAZEL_BUILD"],
     deps = [
+        "//third_party/linuxcnc_proto:linuxcnc_cc_proto",
         "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
         "@linuxcnc_proto//status/message:message_cc_proto",
     ],
 )
@@ -42,8 +42,8 @@ cc_library(
     ],
     defines = ["BAZEL_BUILD"],
     deps = [
+        "//third_party/linuxcnc_proto:linuxcnc_cc_proto",
         "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
         "@linuxcnc_proto//status/message:message_cc_proto",
     ],
 )
@@ -58,11 +58,11 @@ cc_library(
     ],
     defines = ["BAZEL_BUILD"],
     deps = [
+        "//third_party/linuxcnc_proto:linuxcnc_cc_proto",
         "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
-        "@linuxcnc_proto//status:length_unit_cc_proto",
-        "@linuxcnc_proto//status:position_cc_proto",
-        "@linuxcnc_proto//status/task:task_cc_proto",
+        #        "@linuxcnc_proto//status:length_unit_cc_proto",
+        #        "@linuxcnc_proto//status:position_cc_proto",
+        #        "@linuxcnc_proto//status/task:task_cc_proto",
     ],
 )
 
@@ -78,8 +78,8 @@ cc_library(
     defines = ["BAZEL_BUILD"],
     deps = [
         ":component",
+        "//third_party/linuxcnc_proto:linuxcnc_cc_proto",
         "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
     ],
 )
 
@@ -98,8 +98,8 @@ cc_binary(
         ":error_reader",
         ":hal_handler",
         ":status_reader",
+        "//third_party/linuxcnc_proto:linuxcnc_grpc",
         "@com_github_grpc_grpc//:grpc++",
-        "@linuxcnc_proto//:linuxcnc_grpc",
     ],
 )
 

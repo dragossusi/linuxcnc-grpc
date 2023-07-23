@@ -1,0 +1,24 @@
+load("@com_github_grpc_grpc//bazel:cc_grpc_library.bzl", "cc_grpc_library")
+
+# c++
+cc_proto_library(
+    name = "linuxcnc_cc_proto",
+    visibility = ["//visibility:public"],
+    deps = ["@linuxcnc_proto"],
+)
+
+cc_grpc_library(
+    name = "linuxcnc_grpc",
+    srcs = ["@linuxcnc_proto"],
+    grpc_only = True,
+    use_external = True,
+    #    has_services = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":linuxcnc_cc_proto",
+        #        "@linuxcnc_proto//hal:component_proto",
+        #        "@linuxcnc_proto//hal:pin_proto",
+        #        "@linuxcnc_proto//status/io:io_proto",
+        #        "@linuxcnc_proto//status/task:task_proto",
+    ],
+)
