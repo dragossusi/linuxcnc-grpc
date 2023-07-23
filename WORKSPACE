@@ -18,65 +18,41 @@ rules_proto_dependencies()
 
 rules_proto_toolchains()
 
+# maven
+MAVEN_REPOSITORY_RULES_VERSION = "1.2.0"
+
+MAVEN_REPOSITORY_RULES_SHA = "9e23155895d2bfc60b35d2dfd88c91701892a7efba5afacdf00cebc0982229fe"
+
+http_archive(
+    name = "maven_repository_rules",
+    sha256 = MAVEN_REPOSITORY_RULES_SHA,
+    strip_prefix = "bazel_maven_repository-%s" % MAVEN_REPOSITORY_RULES_VERSION,
+    type = "zip",
+    urls = ["https://github.com/square/bazel_maven_repository/archive/%s.zip" % MAVEN_REPOSITORY_RULES_VERSION],
+)
+
+load("@maven_repository_rules//maven:maven.bzl", "maven_repository_specification")
+
+maven_repository_specification(
+    name = "maven",
+    artifacts = {
+        "com.google.guava:guava:25.0-jre": {"sha256": "3fd4341776428c7e0e5c18a7c10de129475b69ab9d30aeafbb5c277bb6074fa9"},
+    },
+)
+
 # Repositories
 load(
     "//:repositories.bzl",
-    "IO_GRPC_GRPC_KOTLIN_ARTIFACTS",
-    "IO_GRPC_GRPC_KOTLIN_OVERRIDE_TARGETS",
     "com_github_grpc_grpc",
-    "com_github_grpc_grpc_kotlin",
-    "grpc_kt_repositories",
-    "io_bazel_rules_kotlin",
-    "io_grpc_grpc_java",
     "linuxcnc_local",
     "linuxcnc_proto",
-    "rules_jvm_external",
 )
-
-rules_jvm_external()
-
-io_bazel_rules_kotlin()
-
-io_grpc_grpc_java()
 
 com_github_grpc_grpc()
 
 linuxcnc_local()
 
 linuxcnc_proto()
-
-com_github_grpc_grpc_kotlin()
-
-load(
-    "@io_grpc_grpc_java//:repositories.bzl",
-    "IO_GRPC_GRPC_JAVA_ARTIFACTS",
-    "IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS",
-    "grpc_java_repositories",
-)
-
-# Maven
-load("@rules_jvm_external//:defs.bzl", "maven_install")
-
-maven_install(
-    artifacts = [
-        "com.google.jimfs:jimfs:1.1",
-        "com.google.truth.extensions:truth-proto-extension:1.0.1",
-        "com.google.protobuf:protobuf-kotlin:3.18.0",
-    ] + IO_GRPC_GRPC_KOTLIN_ARTIFACTS + IO_GRPC_GRPC_JAVA_ARTIFACTS,
-    generate_compat_repositories = True,
-    override_targets = dict(
-        IO_GRPC_GRPC_KOTLIN_OVERRIDE_TARGETS.items() +
-        IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS.items(),
-    ),
-    repositories = [
-        "https://maven.google.com",
-        "https://repo.maven.apache.org/maven2/",
-    ],
-)
-
-load("@maven//:compat.bzl", "compat_repositories")
-
-compat_repositories()
 
 # gRPC
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
@@ -87,24 +63,12 @@ load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 
 grpc_extra_deps()
 
-grpc_kt_repositories()
-
-grpc_java_repositories()
-
 # Protocol Buffers
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 protobuf_deps()
 
-# Kotlin
-load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
-
-kotlin_repositories()
-
-load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
-
-kt_register_toolchains()
-
+# CC
 load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies")
 
 rules_cc_dependencies()
