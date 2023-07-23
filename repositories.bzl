@@ -1,7 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-GRPC_VERSION = "1.56.2"
-
 def com_google_protobuf():
     protobuf_version = "23.4"
     protobuf_sha = "2c6a36c7b5a55accae063667ef3c55f2642e67476d96d355ff0acb13dbb47f09"
@@ -14,6 +12,7 @@ def com_google_protobuf():
     )
 
 def com_github_grpc_grpc():
+    GRPC_VERSION = "1.56.2"
     http_archive(
         name = "com_github_grpc_grpc",
         #        sha256 = "4b64cbc454cc4fd0801a2823111e1d99f519c765dfa116905740f7ca2256d085",
