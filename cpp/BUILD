@@ -27,8 +27,8 @@ cc_library(
     defines = ["BAZEL_BUILD"],
     deps = [
         "@linuxcnc",
-        "@linuxcnc_proto//linuxcnc_cc_proto",
-        "@linuxcnc_proto//status/message:message_cc_proto",
+        "@linuxcnc_proto//proto/linuxcnc/linuxcnc_cc_proto",
+        "@linuxcnc_proto//proto/linuxcnc/status/message:message_cc_proto",
     ],
 )
 

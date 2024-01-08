@@ -3,3 +3,6 @@ try-import %workspace%/user.bazelrc
 
 # set c++17
 build --action_env=BAZEL_CXXOPTS="-std=c++17"
+
+# enable modules
+common --enable_bzlmod
