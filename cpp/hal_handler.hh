@@ -1,7 +1,7 @@
 #include <map>
 #include <vector>
 
-#include "linuxcnc.pb.h"
+#include "proto/linuxcnc/linuxcnc.pb.h"
 #include "component.hh"
 
 using linuxcnc::CreateComponentRequest;

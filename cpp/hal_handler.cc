@@ -1,6 +1,6 @@
 #include "hal_handler.hh"
 
-#include "linuxcnc.pb.h"
+#include "proto/linuxcnc/linuxcnc.pb.h"
 
 #include <hal.h>
 

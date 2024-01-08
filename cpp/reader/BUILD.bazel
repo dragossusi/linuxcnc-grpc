@@ -1,0 +1,35 @@
+cc_library(
+    name = "status_reader",
+    srcs = ["status_reader.cc"],
+    hdrs = ["status_reader.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    defines = ["BAZEL_BUILD"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@linuxcnc",
+        "@linuxcnc_proto//:linuxcnc_cc_proto",
+        "@linuxcnc_proto//proto/linuxcnc/status:length_unit_cc_proto",
+        #        "@linuxcnc_proto//proto/linuxcnc/status:position_cc_proto",
+        #        "@linuxcnc_proto//proto/linuxcnc/status/task:task_cc_proto",
+    ],
+)
+
+cc_library(
+    name = "error_reader",
+    srcs = ["error_reader.cc"],
+    hdrs = ["error_reader.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    defines = ["BAZEL_BUILD"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@linuxcnc",
+        "@linuxcnc_proto//:linuxcnc_cc_proto",
+        "@linuxcnc_proto//proto/linuxcnc/status/message:message_cc_proto",
+    ],
+)

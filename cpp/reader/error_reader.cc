@@ -13,7 +13,7 @@
 
 #include <cmd_msg.hh>
 
-#include "linuxcnc.pb.h"
+#include "proto/linuxcnc/linuxcnc.pb.h"
 
 using linuxcnc::status::MessageType;
 using linuxcnc::status::SystemMessage;

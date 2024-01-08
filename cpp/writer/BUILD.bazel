@@ -1,0 +1,15 @@
+cc_library(
+    name = "command_writer",
+    srcs = ["command_writer.cc"],
+    hdrs = ["command_writer.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    defines = ["BAZEL_BUILD"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@linuxcnc",
+        "@linuxcnc_proto//:linuxcnc_cc_proto",
+    ],
+)

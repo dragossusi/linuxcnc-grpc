@@ -1,7 +1,7 @@
 
 #include <map>
 
-#include "linuxcnc.pb.h"
+#include "proto/linuxcnc/linuxcnc.pb.h"
 
 using linuxcnc::CreatePinRequest;
 using linuxcnc::HalComponent;

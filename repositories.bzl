@@ -10,11 +10,11 @@ def com_github_grpc_grpc():
     )
 
 def linuxcnc_git():
-    LINUXCNC_VERSION = "2.9"
+    LINUXCNC_VERSION = "2.9.2"
 
     http_archive(
         name = "linuxcnc",
-        build_file = "//third_party/linuxcnc/BUILD",
+        build_file = "//third_party/linuxcnc/BUILD.bazel.bazel",
         strip_prefix = "linuxcnc_%s" % LINUXCNC_VERSION,
         url = "https://github.com/LinuxCNC/linuxcnc/archive/refs/heads/%s.zip" % LINUXCNC_VERSION,
     )

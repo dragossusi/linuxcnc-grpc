@@ -1,0 +1,5 @@
+# Empty for now
+alias(
+    name = "server",
+    actual = "//cpp:server",
+)

@@ -48,13 +48,3 @@ linuxcnc_local()
 
 # linuxcnc proto
 linuxcnc_proto()
-
-# Protocol Buffers
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
-
-# CC
-load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies")
-
-rules_cc_dependencies()

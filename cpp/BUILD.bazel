@@ -1,0 +1,63 @@
+cc_library(
+    name = "component",
+    srcs = ["component.cc"],
+    hdrs = ["component.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    defines = ["BAZEL_BUILD"],
+    deps = [
+        "@linuxcnc",
+        "@linuxcnc_proto//:linuxcnc_cc_proto",
+        "@linuxcnc_proto//proto/linuxcnc/status/message:message_cc_proto",
+    ],
+)
+
+cc_library(
+    name = "hal_handler",
+    srcs = ["hal_handler.cc"],
+    hdrs = ["hal_handler.hh"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+        "-DULAPI",
+    ],
+    defines = ["BAZEL_BUILD"],
+    deps = [
+        ":component",
+        "@linuxcnc",
+        "@linuxcnc_proto//:linuxcnc_cc_proto",
+    ],
+)
+
+cc_binary(
+    name = "server",
+    srcs = [
+        "linuxcnc_server.cc",
+    ],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    defines = ["BAZEL_BUILD"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":hal_handler",
+        "//cpp/writer:command_writer",
+        "//cpp/reader:error_reader",
+        "//cpp/reader:status_reader",
+        "@com_github_grpc_grpc//:grpc++",
+        #        "@linuxcnc_proto//linuxcnc_grpc",
+    ],
+)
+
+cc_binary(
+    name = "test_nml",
+    srcs = ["TestNML.cc"],
+    copts = [
+        "-Iexternal/linuxcnc/include",
+        "-Iexternal/linuxcnc/src",
+    ],
+    deps = ["@linuxcnc"],
+)
