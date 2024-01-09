@@ -21,3 +21,4 @@
 /.sass-cache
 
 user.bazelrc
+/MODULE.bazel.lock
