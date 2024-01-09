@@ -44,11 +44,11 @@ cc_binary(
     visibility = ["//visibility:public"],
     deps = [
         ":hal_handler",
-        "//cpp/writer:command_writer",
         "//cpp/reader:error_reader",
         "//cpp/reader:status_reader",
-        "@com_github_grpc_grpc//:grpc++",
-        #        "@linuxcnc_proto//linuxcnc_grpc",
+        "//cpp/writer:command_writer",
+        "@linuxcnc_proto//:linuxcnc_cc_grpc",
+        #        "@com_github_grpc_grpc//:grpc++",
     ],
 )
 

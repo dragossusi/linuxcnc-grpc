@@ -43,8 +43,8 @@ load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 
 grpc_extra_deps()
 
-# linuxcnc
-linuxcnc_local()
-
 # linuxcnc proto
 linuxcnc_proto()
+
+# linuxcnc
+linuxcnc_local()

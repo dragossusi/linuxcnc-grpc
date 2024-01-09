@@ -24,4 +24,6 @@ HalPin ComponentWithPins::createPin(
 
     pin.set_component_id(component.component_id());
     pin.set_component_name(component.name());
+
+    return pin;
 }

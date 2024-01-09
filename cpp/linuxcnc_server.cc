@@ -5,9 +5,9 @@
 
 #include <grpcpp/grpcpp.h>
 
-#include "status_reader.hh"
-#include "error_reader.hh"
-#include "command_writer.hh"
+#include "reader/status_reader.hh"
+#include "reader/error_reader.hh"
+#include "writer/command_writer.hh"
 #include "hal_handler.hh"
 
 #ifdef BAZEL_BUILD
