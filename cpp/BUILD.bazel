@@ -47,8 +47,8 @@ cc_binary(
         "//cpp/reader:error_reader",
         "//cpp/reader:status_reader",
         "//cpp/writer:command_writer",
+        "@com_github_grpc_grpc//:grpc++",
         "@linuxcnc_proto//:linuxcnc_cc_grpc",
-        #        "@com_github_grpc_grpc//:grpc++",
     ],
 )
 

@@ -5,7 +5,7 @@ try-import %workspace%/user.bazelrc
 build --action_env=BAZEL_CXXOPTS="-std=c++17"
 
 # enable clang
-build --repo_env=CC=clang
+# build --repo_env=CC=clang
 
 # enable modules
 common --enable_bzlmod

@@ -11,9 +11,9 @@
 #include "hal_handler.hh"
 
 #ifdef BAZEL_BUILD
-#include "linuxcnc.grpc.pb.h"
+#include "proto/linuxcnc/linuxcnc.grpc.pb.h"
 #else
-#include "linuxcnc.grpc.pb.h"
+#include "proto/linuxcnc/linuxcnc.grpc.pb.h"
 #endif
 
 using grpc::Server;
