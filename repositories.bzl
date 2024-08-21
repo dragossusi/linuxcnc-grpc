@@ -1,7 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 def com_github_grpc_grpc():
-    GRPC_VERSION = "1.51.1"
+    GRPC_VERSION = "1.64.2"
     http_archive(
         name = "com_github_grpc_grpc",
         strip_prefix = "grpc-%s" % GRPC_VERSION,
@@ -29,5 +29,6 @@ def linuxcnc_proto():
     http_archive(
         name = "linuxcnc_proto",
         strip_prefix = "linuxcnc-proto-main",
+        integrity = "sha256-7SVusH2cJIHFMruVBy1lNSE2CTS+baIxg/yNMnYMUYI=",
         url = "https://github.com/dragossusi/linuxcnc-proto/archive/refs/heads/main.zip",
     )
