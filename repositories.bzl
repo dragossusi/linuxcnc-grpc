@@ -26,9 +26,9 @@ def linuxcnc_local():
     )
 
 def linuxcnc_proto():
+    BRANCH = "main"
     http_archive(
         name = "linuxcnc_proto",
-        strip_prefix = "linuxcnc-proto-main",
-        integrity = "sha256-7SVusH2cJIHFMruVBy1lNSE2CTS+baIxg/yNMnYMUYI=",
-        url = "https://github.com/dragossusi/linuxcnc-proto/archive/refs/heads/main.zip",
+        strip_prefix = "linuxcnc-proto-%s" % BRANCH,
+        url = "https://github.com/dragossusi/linuxcnc-proto/archive/refs/heads/%s.zip" % BRANCH,
     )
