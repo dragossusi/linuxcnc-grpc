@@ -11,7 +11,7 @@ cc_library(
     defines = ["BAZEL_BUILD"],
     visibility = ["//visibility:public"],
     deps = [
-        "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
+        "//third_party/linuxcnc",
+        "@linuxcnc_proto//proto/linuxcnc:linuxcnc_cc_grpc",
     ],
 )

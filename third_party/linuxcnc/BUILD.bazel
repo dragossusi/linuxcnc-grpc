@@ -1,19 +1,5 @@
-load("@rules_cc//cc:defs.bzl", "cc_library")
-
-cc_library(
+alias(
     name = "linuxcnc",
-    srcs = glob([
-        "lib/**/*.so",
-        "lib/**/*.so.0",
-    ]),
-    hdrs = glob([
-        "include/**/*.h",
-        "include/**/*.hh",
-        "src/*.h",
-    ]),
-    copts = [
-        "-Iexternal/linuxcnc/include",
-        "-Iexternal/linuxcnc/src",
-    ],
+    actual = "@linuxcnc//:linuxcnc",
     visibility = ["//visibility:public"],
 )

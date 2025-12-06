@@ -1,1 +1,15 @@
-bazel_dep(name = "protobuf", version = "27.2")
+module(
+    name = "linuxcnc-grpc",
+    version = "0.0.1"
+)
+
+bazel_dep(name = "protobuf", version = "33.0")
+bazel_dep(name = "grpc", version = "1.76.0")
+bazel_dep(name = "rules_cc", version = "0.0.17")
+bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
+
+bazel_dep(name = "linuxcnc")
+local_path_override(module_name = "linuxcnc", path="/home/dragos/Apps/linuxcnc")
+
+bazel_dep(name = "linuxcnc_proto")
+local_path_override(module_name = "linuxcnc_proto", path="/home/dragos/IdeaProjects/linuxcnc-proto")

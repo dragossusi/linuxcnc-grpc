@@ -11,7 +11,7 @@ cc_library(
     defines = ["BAZEL_BUILD"],
     deps = [
         "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
+        "@linuxcnc_proto//proto/linuxcnc:linuxcnc_cc_grpc",
         "@linuxcnc_proto//proto/linuxcnc/status/message:message_cc_proto",
     ],
 )
@@ -29,7 +29,7 @@ cc_library(
     deps = [
         ":component",
         "@linuxcnc",
-        "@linuxcnc_proto//:linuxcnc_cc_proto",
+        "@linuxcnc_proto//proto/linuxcnc:linuxcnc_cc_grpc",
     ],
 )
 
@@ -49,8 +49,8 @@ cc_binary(
         "//cpp/reader:error_reader",
         "//cpp/reader:status_reader",
         "//cpp/writer:command_writer",
-        "@com_github_grpc_grpc//:grpc++",
-        "@linuxcnc_proto//:linuxcnc_cc_grpc",
+        "@grpc//:grpc++",
+        "@linuxcnc_proto//proto/linuxcnc:linuxcnc_cc_grpc",
     ],
 )
 
